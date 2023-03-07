@@ -15,7 +15,7 @@ Jauzion Rémi : Développeur, concepteur<br>
 
 ## Membres de l'équipe projet de Check Your Mood V2
 Silvestre Franck : Client partie site web Check Your Mood V2<br>
-Corinne Servières : Client partie site web CYMdroid<br>
+Corinne Servières : Client partie client mobile CYMdroid<br>
 Ahmed Bribach : Développeur<br>
 Antonin Claudel : Product Owner, Développeur<br>
 Axel Bois : Développeur<br>
@@ -27,7 +27,7 @@ Simon Douziech : Scrum Master, Développeur<br>
 ## Lien vers le manuel utilisateur de Check Your Mood V1
 [Manuel Utilisateur](https://drive.google.com/file/d/1qGFJXkN4jqYRCa_7pJGrn-NiqMY1Dwnc/view?usp=share_link)
 
---------
+---
 # Livrables Check Your Mood V2
 ## Lien vers l'Audit Qualité de Check Your Mood V1
 [Audit Qualité](https://docs.google.com/document/d/1w2pW7UrZZmM8HcnjnLnRqdFvaj2UFiqwPgNOt-iAEOQ/edit?usp=sharing)
