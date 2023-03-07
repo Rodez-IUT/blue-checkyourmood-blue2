@@ -14,6 +14,8 @@ Jalbaud Gauthier : Développeur, concepteur<br>
 Jauzion Rémi : Développeur, concepteur<br>
 
 ## Membres de l'équipe projet de Check Your Mood V2
+Silvestre Franck : Client partie site web Check Your Mood V2<br>
+Corinne Servières : Client partie site web CYMdroid<br>
 Ahmed Bribach : Développeur<br>
 Antonin Claudel : Product Owner, Développeur<br>
 Axel Bois : Développeur<br>
