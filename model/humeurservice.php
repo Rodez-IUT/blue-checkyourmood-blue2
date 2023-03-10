@@ -6,7 +6,7 @@ class humeurservice
 {
 
     /* Recupération des humeurs selon un utilisateur et selon l'émotion voulue et selon une date */
-    public static function getHumeursUtilisateurFiltres($pdo, $codeUtilisateur, $codeEmotion, $dateHeure)
+    public static function getHumeursUtilisateurFiltres($pdo, $codeUtilisateur, $codeEmotion, $dateHeure, $pagination)
     {
         try{
             $sql = "SELECT *
@@ -14,10 +14,11 @@ class humeurservice
                     JOIN `emotion` ON humeur.CODE_EMOTION = emotion.ID_EMOTION
                     WHERE humeur.CODE_UTILISATEUR = ? AND humeur.CODE_EMOTION = ? AND humeur.DATE_HEURE LIKE ? 
                     ORDER BY `DATE_HEURE` DESC
+                    LIMIT 15 OFFSET 0-- :pagination --
                     ";
 
             $stmt = $pdo->prepare($sql);
-            $stmt->execute([$codeUtilisateur, $codeEmotion, $dateHeure."%"]);
+            $stmt->execute([$codeUtilisateur, $codeEmotion, $dateHeure."%",'pagination'=>($pagination - 1) * 15]);
 
             $tabHumeurs = array();
             while ($row = $stmt->fetch()) {
@@ -42,6 +43,7 @@ class humeurservice
                     JOIN `emotion` ON humeur.CODE_EMOTION = emotion.ID_EMOTION
                     WHERE humeur.CODE_UTILISATEUR = ? AND humeur.DATE_HEURE LIKE ? 
                     ORDER BY `DATE_HEURE` DESC
+                    LIMIT 15 OFFSET 0
                     ";
 
             $stmt = $pdo->prepare($sql);
@@ -69,6 +71,7 @@ class humeurservice
                     JOIN `emotion` ON humeur.CODE_EMOTION = emotion.ID_EMOTION
                     WHERE humeur.CODE_UTILISATEUR = ? AND humeur.CODE_EMOTION = ? 
                     ORDER BY `DATE_HEURE` DESC
+                    LIMIT 15 OFFSET 0
                     ";
 
             $stmt = $pdo->prepare($sql);
@@ -96,6 +99,7 @@ class humeurservice
                     JOIN `emotion` ON humeur.CODE_EMOTION = emotion.ID_EMOTION
                     WHERE humeur.CODE_UTILISATEUR = ? 
                     ORDER BY `DATE_HEURE` DESC
+                    LIMIT 15 OFFSET 0
                     ";
 
             $stmt = $pdo->prepare($sql);
