@@ -100,6 +100,6 @@ class connexionController implements controller
         session_destroy();
 
         header("Location: /?controller=index");
-
+        exit();
     }
 }
