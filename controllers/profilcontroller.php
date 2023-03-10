@@ -52,6 +52,6 @@ class profilController implements controller
         sleep(4); //Laisse le temps a l'utilisateur de voir la notification
         
         header("Location: /?controller=index");
-       
+        exit();
     }
 }
