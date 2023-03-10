@@ -78,43 +78,43 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                                 <!-- Verification si la date est inferieure a 2 heures pour afficher le bouton supprimer -->
                                 
                                 <td>
-                                <?php 
-                                $startTime = date("Y-m-d H:i:s");
+                                    <?php 
+                                    $startTime = date("Y-m-d H:i:s");
 
-                                //Fuseau horaire +1
-                                $dateDebut = date('Y-m-d H:i:s', strtotime('+1 hours', strtotime($startTime)));
+                                    //Fuseau horaire +1
+                                    $dateDebut = date('Y-m-d H:i:s', strtotime('+1 hours', strtotime($startTime)));
 
-                                $dateMoinsDeuxHeures = date('Y-m-d H:i:s', strtotime('-2 hours', strtotime($startTime)));
+                                    $dateMoinsDeuxHeures = date('Y-m-d H:i:s', strtotime('-2 hours', strtotime($startTime)));
 
-                                $dateAComparer = date_format($dateHeure,"Y-m-d H:i:s");
+                                    $dateAComparer = date_format($dateHeure,"Y-m-d H:i:s");
 
-                                if ($dateAComparer > $dateMoinsDeuxHeures)  {
-                                ?>
-                                    <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalSuppr">Supprimer</button>
-                                <?php } ?>
-                                
-                                <!-- Modal contenant la confirmation de la suppression de l'humeur -->
-                                <div class="modal fade" id="modalSuppr">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Confirmation de suppression d'une humeur </h5>
-                                                <button class="btn-close" data-bs-dismiss="modal"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Vous êtes sur le point de supprimer une humeur. Confirmez-vous cette suppression ?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                                                <form action="/?controller=consultationHumeurs&action=supprimer" method="POST">
-                                                    <input name="codeHumeur" value="<?php echo $humeur['ID_HUMEUR']?>" class="btn btn-outline-danger" hidden>
-                                                    <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
-                                                    <input type="submit" value="Confirmer la suppression" class="btn btn-outline-danger">
-                                                </form>
+                                    if ($dateAComparer > $dateMoinsDeuxHeures)  {
+                                    ?>
+                                        <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalSuppr">Supprimer</button>
+                                    <?php } ?>
+                                    
+                                    <!-- Modal contenant la confirmation de la suppression de l'humeur -->
+                                    <div class="modal fade" id="modalSuppr">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Confirmation de suppression d'une humeur </h5>
+                                                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Vous êtes sur le point de supprimer une humeur. Confirmez-vous cette suppression ?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                                    <form action="/?controller=consultationHumeurs&action=supprimer" method="POST">
+                                                        <input name="codeHumeur" value="<?php echo $humeur['ID_HUMEUR']?>" class="btn btn-outline-danger" hidden>
+                                                        <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
+                                                        <input type="submit" value="Confirmer la suppression" class="btn btn-outline-danger">
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
                                 </td>
                             </tr>
                         <?php

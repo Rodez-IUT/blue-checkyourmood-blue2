@@ -27,24 +27,24 @@ require 'includes/header.php';
                             <div class="row">
                                 <div class="col-1"></div>
                                 <div class="col alert alert-warning">
-                                <?php
-                                $err = htmlspecialchars($_GET['err']);
+                                    <?php
+                                    $err = htmlspecialchars($_GET['err']);
 
-                                switch ($err) {
-                                    
-                                    case 'identifiantmdp':
-                                ?>
-                                <strong>Identifiant ou mot de passe incorrect</strong>
-                                <?php
-                                    break;
+                                    switch ($err) {
+                                        
+                                        case 'identifiantmdp':
+                                    ?>
+                                    <strong>Identifiant ou mot de passe incorrect</strong>
+                                    <?php
+                                        break;
 
-                                    case 'vide':
-                                ?>
-                                <strong>Veuillez remplir les champs</strong>
-                                <?php
-                                    break;
-                                }
-                                ?>
+                                        case 'vide':
+                                    ?>
+                                    <strong>Veuillez remplir les champs</strong>
+                                    <?php
+                                        break;
+                                    }
+                                    ?>
                                 </div>
                                 <div class="col-1"></div>
                             </div>

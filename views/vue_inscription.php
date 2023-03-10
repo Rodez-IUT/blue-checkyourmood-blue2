@@ -120,24 +120,18 @@ require 'includes/header.php';
                     <select class="form-select <?php if ($genreOK) { echo 'is-valid'; } ?>" name="newGenre">
                         <option value="">Veuillez renseigner un genre</option>
                         <option 
-                                <?php if (isset($genre)) {
-                                        if ($genre == 'Homme') {
-                                            echo ('selected');
-                                        }
+                            <?php   if (isset($genre) && $genre == 'Homme') {
+                                        echo ('selected');
                                     }
-                                ?> value="Homme">Homme</option>
+                            ?> value="Homme">Homme</option>
                         <option 
-                                <?php if (isset($genre)) {
-                                        if ($genre == 'Femme') {
+                                <?php if (isset($genre && $genre == 'Femme')) {
                                             echo ('selected');
-                                        }
                                     }
                                 ?> value="Femme">Femme</option>
                         <option 
-                                <?php if (isset($genre)) {
-                                        if ($genre == 'Autre') {
+                                <?php if (isset($genre && $genre == 'Autre')) {
                                             echo ('selected');
-                                        }
                                     }
                                 ?> value="Autre">Autre</option>
                     </select>
