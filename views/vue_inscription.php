@@ -40,7 +40,7 @@ require 'includes/header.php';
                     <div class="alert alert-danger" role="alert">
                         Erreur ! L'identifiant <?php echo ($nomUtilisateur);?> est deja utilisé.
                         <br>                        
-                        <a href="/?controller=index"" class="alert-link">Cliquez ici si vous connecter</a>
+                        <a href="/?controller=index" class="alert-link">Cliquez ici si vous connecter</a>
                     </div>
                 </div>
                 <div class="col-1"></div>
@@ -58,8 +58,21 @@ require 'includes/header.php';
                 <div class="col-1"></div>
             </div>
             <?php } ?>
+            <!-- si le mail n'est pas remplie -->
+            <?php if(!isset($mail)&& ) { ?>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col">
+                    <div class="alert alert-warning" role="alert">
+                       veuillez entrez un email
+                    </div>
+                </div>
+                <div class="col-1"></div>
+            </div>
+            <?php } ?>
+
             <!-- Si l'email n'est pas valide -->
-            <?php if($mail != null && !$mailOK) { ?>*
+            <?php if($mail != null && !$mailOK) { ?>
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col">
