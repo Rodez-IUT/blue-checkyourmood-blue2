@@ -44,6 +44,7 @@ class consultationHumeursController implements controller
         //Filtres possibles
         $codeEmotion = httphelper::getParam('codeEmotion');
         $dateSaisie = httphelper::getParam('dateSaisie');
+        $pagination = httphelper::getParam('pagination');
         if (isset($dateSaisie) && $dateSaisie != "" && isset($codeEmotion) && $codeEmotion != "") {
             $_POST['humeurs'] = humeurservice::getHumeursUtilisateurFiltres($pdo, $codeUtilisateur, $codeEmotion, $dateSaisie);
         } else if (isset($codeEmotion) && $codeEmotion != "") {
