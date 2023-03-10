@@ -29,7 +29,7 @@ class humeurservice
             return $tabHumeurs;
         } catch (\Exception $e) {
             var_dump($e->getMessage());
-            exit();
+            
         }
     }
 
@@ -56,7 +56,7 @@ class humeurservice
             return $tabHumeurs;
         } catch (\Exception $e) {
             var_dump($e->getMessage());
-            exit();
+            
         }
     }
 
@@ -83,7 +83,7 @@ class humeurservice
             return $tabHumeurs;
         } catch (\Exception $e) {
             var_dump($e->getMessage());
-            exit();
+           
         }
     }
 
@@ -110,7 +110,7 @@ class humeurservice
             return $tabHumeurs;
         } catch (\Exception $e) {
             var_dump($e->getMessage());
-            exit();
+            
         }
     }
 
