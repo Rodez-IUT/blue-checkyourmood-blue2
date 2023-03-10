@@ -80,11 +80,10 @@ class connexionController implements controller
             $_SESSION['date_naissance']=$user['DATE_DE_NAISSANCE'];	
 
             header("Location: /?controller=accueil");
-            exit();
+            
+        }else{
+            $_GET['err'] = $err;
         }
-
-        $_GET['err'] = $err;
-
         return $this->index($pdo);
     }
 
@@ -101,6 +100,6 @@ class connexionController implements controller
         session_destroy();
 
         header("Location: /?controller=index");
-        exit();
+
     }
 }
