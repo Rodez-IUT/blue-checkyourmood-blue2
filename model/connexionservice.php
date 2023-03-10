@@ -12,14 +12,16 @@ class connexionservice
     public static function identifiantExiste($pdo, $identifiant)
     {
         try {
+            $test = false;
             $stmt = $pdo->prepare("SELECT * FROM utilisateur WHERE NOM_UTILISATEUR = ?");
             $stmt->execute([$identifiant]);
             $user = $stmt->fetch();
-            if ($user == null) {
-                return false;
-            } else {
-                return true;
+
+            if ($user != null) {
+                $test = true;
             }
+            return $test
+
         } catch (\Exception $e) {
             var_dump($e->getMessage());
             exit();
@@ -32,14 +34,15 @@ class connexionservice
     public static function motDePasseValide($pdo, $identifiant, $motDePasse)
     {
         try {
+            $test = false;
             $stmt = $pdo->prepare("SELECT * FROM utilisateur WHERE NOM_UTILISATEUR = ? AND MOT_DE_PASSE = ?");
             $stmt->execute([$identifiant, sha1($motDePasse)]);
             $user = $stmt->fetch();
-            if ($user == null) {
-                return false;
-            } else {
-                return true;
+            if ($user != null) {
+                $test = true;
             }
+            return $test;
+
         } catch (\Exception $e) {
             var_dump($e->getMessage());
             exit();
@@ -49,7 +52,7 @@ class connexionservice
 
     /**
      * Donne les infos de l'utilisateur sélectionné
-     * retourne vrai si les informations ont pu être données sinon faux
+     * retourne les informations de l'utilisateur si il est trouvé par le nom_utilisateur
      */
     public static function getUtilisateur($pdo, $identifiant)
     {
@@ -58,6 +61,7 @@ class connexionservice
             $stmt->execute([$identifiant]);
             $user = $stmt->fetch();
             return $user;
+
         } catch (\Exception $e) {
             var_dump($e->getMessage());
             exit();
@@ -66,7 +70,7 @@ class connexionservice
 
     /**
      * Donne les infos de l'utilisateur sélectionné
-     * retourne vrai si les informations ont pu être données sinon faux
+     * retourne les informations de l'utilisateur si il est trouvé par l'id_utilisateur
      */
     public static function getUtilisateurById($pdo, $id)
     {
@@ -75,6 +79,7 @@ class connexionservice
             $stmt->execute([$id]);
             $user = $stmt->fetch();
             return $user;
+
         } catch (\Exception $e) {
             var_dump($e->getMessage());
             exit();

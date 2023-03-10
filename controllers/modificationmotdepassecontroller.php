@@ -65,7 +65,7 @@ class modificationMotDePasseController implements controller
         } else {
             $err = 'vide';
         }
-
+        
         $_GET['err'] = $err;
 
         return $this->index($pdo);

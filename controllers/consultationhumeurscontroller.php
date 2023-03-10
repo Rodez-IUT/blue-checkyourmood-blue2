@@ -44,15 +44,14 @@ class consultationHumeursController implements controller
         //Filtres possibles
         $codeEmotion = httphelper::getParam('codeEmotion');
         $dateSaisie = httphelper::getParam('dateSaisie');
-        if (isset($dateSaisie) && $dateSaisie != "" && isset($codeEmotion) && $codeEmotion != "") {
-            $_POST['humeurs'] = humeurservice::getHumeursUtilisateurFiltres($pdo, $codeUtilisateur, $codeEmotion, $dateSaisie);
-        } else if (isset($codeEmotion) && $codeEmotion != "") {
-            $_POST['humeurs'] = humeurservice::getHumeursUtilisateurEmotion($pdo, $codeUtilisateur, $codeEmotion);
-        } else if (isset($dateSaisie) && $dateSaisie != "") {
-            $_POST['humeurs'] = humeurservice::getHumeursUtilisateurDate($pdo, $codeUtilisateur, $dateSaisie);
-        } else {
-            $_POST['humeurs'] = humeurservice::getHumeursUtilisateur($pdo, $codeUtilisateur);
+        if(isset($codeEmotion) && $codeEmotion == ""){
+            $codeEmotion = null;
         }
+        if (isset($dateSaisie) && $dateSaisie != "") {
+            $dateSaisie = null;
+        }
+        $_POST['humeurs'] = humeurservice::getHumeursUtilisateur($pdo, $codeUtilisateur, $codeEmotion, $dateSaisie);
+
 
         $view->setVar('humeurs', httphelper::getParam('humeurs'));
         $view->setVar('tabEmotions', emotionsservice::getEmotions($pdo));

@@ -66,7 +66,7 @@ class connexionController implements controller
 
         if ($connect) {
             
-            //TODO faire la mise en place des sessions et appeler la methode getUtilisateur 
+            //Mise en place des sessions et appelle de la methode getUtilisateur 
             session_start();
             $user = connexionservice::getUtilisateur($pdo, $identifiant);
 

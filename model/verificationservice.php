@@ -10,14 +10,13 @@ class verificationservice
      * @return true si trouver sinon false
      */
     public static function testNom($nom) {
+        $test = false;
         if ($nom != null || $nom != "") {
             if (strlen($nom) < 80) {
-                //$_GET['msgRetour'] = "test d'un msg retour";
-                return true;
-            } else {
-                return false;
+                $test = true;
             }
         }
+        return $test;
     }
 
     /**
@@ -25,15 +24,13 @@ class verificationservice
      * @return true si trouver sinon false
      */
     public static function testPrenom($prenom) {
+        $test = false;
         if ($prenom != null || $prenom != "") {
             if (strlen($prenom) < 80) {
-                return true;
-            } else {
-                return false;
+                $test = true;
             }
-        } else {
-            return false;
         }
+        return $test;
     }
 
     /**
@@ -41,15 +38,13 @@ class verificationservice
      * @return true si trouver sinon false
      */
     public static function testMail($mail) {
+        $test = false;
         if ($mail != null || $mail != "") {
             if (filter_var($mail, FILTER_VALIDATE_EMAIL)) {
-                return true;
-            } else {
-                return false;
+                $test  = true;
             }
-        } else {
-            return false;
-        }
+        } 
+        return $test;
     }
 
     /**
@@ -57,15 +52,13 @@ class verificationservice
      * @return true si trouver sinon false
      */
     public static function testNomUtilisateur($nomUtilisateur) {
+        $test = false;
         if ($nomUtilisateur != null || $nomUtilisateur != "") {
             if (strlen($nomUtilisateur) < 80) {
-                return true;
-            } else {
-                return false;
+                $test = true;
             }
-        } else {
-            return false;
         }
+        return $test;  
     }
     
     /**
@@ -73,13 +66,13 @@ class verificationservice
      * @return true si trouver sinon false
      */
     public static function testGenre($genre) {
+        $test = false;
         if ($genre != null || $genre != "") {
             if (strlen($genre) < 80) {
-                return true;
+                $test = true;
             }
-        } else {
-            return false;
         }
+        return $test;    
     }
 
     /**
@@ -87,12 +80,11 @@ class verificationservice
      * @return true si trouver sinon false
      */
     public static function testDateNaissance($dateNaissance) {
+        $test = false;
         if ($dateNaissance != null || $dateNaissance != "") {
-            return true;
-        } else {
-            return false;
+            $test = true;
         }
-        
+        return $test;
     }
 
     /**
@@ -100,12 +92,11 @@ class verificationservice
      * @return true si trouver sinon false
      */
     public static function testMotDePasse($mdp) {
-
+        $test = false;
         if ($mdp != null || $mdp != "") {
-            return true;
-        } else {
-            return false;
+            $test =  true;
         }
+        return $test;
     }
 
     /** 
@@ -113,17 +104,12 @@ class verificationservice
      * @param mdp1 mot de passe renseignée par l'utilisateur
      * @param mdp2 deuxième saisie du mot de passe renseignée par l'utilisateur
      */
-    public static function testMdpCorrespond($mdp1, $mdp2)
-    {
+    public static function testMdpCorrespond($mdp1, $mdp2) {
+        $test = false;
         if ($mdp1 != null && $mdp2 != null) {
             if ($mdp1 == $mdp2) {
-                return true;
-            } else {
-                return false;
+                $test = true;          
             }
-        } else {
-            return false;
         }
-            
-    }
+        return $test;
 }
