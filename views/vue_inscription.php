@@ -125,12 +125,12 @@ require 'includes/header.php';
                                     }
                             ?> value="Homme">Homme</option>
                         <option 
-                                <?php if (isset($genre && $genre == 'Femme')) {
+                                <?php if (isset($genre) && $genre == 'Femme') {
                                             echo ('selected');
                                     }
                                 ?> value="Femme">Femme</option>
                         <option 
-                                <?php if (isset($genre && $genre == 'Autre')) {
+                                <?php if (isset($genre) && $genre == 'Autre') {
                                             echo ('selected');
                                     }
                                 ?> value="Autre">Autre</option>
@@ -148,7 +148,7 @@ require 'includes/header.php';
             <!-- Bouton s'inscrire -->
             <div class="row">
                 <div class="col">
-                    <input class="btn btn-primary btn-lg" type="submit" value="S'inscrire" >
+                    <input class="btn btn-primary btn-lg" type="submit" value="S'inscrire">
                 </div>
             </div>
             <p class="espace0"></p>

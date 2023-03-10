@@ -41,8 +41,8 @@ class visualisationHumeursController implements controller
         $dateFin = httphelper::getParam('dateFin');
         $view->setVar('tableauDates', stathumeurservice::getDates($pdo, $dateDebut, $dateFin, $codeUtilisateur));
 
-        for ($i = 1; $i <= 27: $i++){
-            $tableau = 'tableau'.$i
+        for ($i = 1; $i <= 27; $i++){
+            $tableau = 'tableau'.$i;
             $view->setVar($tableau, stathumeurservice::getNbHumeursParEmotions($pdo, $dateDebut, $dateFin, $i, $codeUtilisateur));
         }
 

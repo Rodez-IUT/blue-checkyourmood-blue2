@@ -12,14 +12,14 @@ class humeurservice
             $sql = "SELECT *
                     FROM `humeur`
                     JOIN `emotion` ON humeur.CODE_EMOTION = emotion.ID_EMOTION
-                    WHERE humeur.CODE_UTILISATEUR = ?"
-            if($codeEmotion == null){ 
-                $sql = $sql."AND humeur.CODE_EMOTION = ?"
+                    WHERE humeur.CODE_UTILISATEUR = ?";
+            if($codeEmotion != null){ 
+                $sql = $sql." AND humeur.CODE_EMOTION = ?";
             }
-            if($dateHeure == null){ 
-                $sql = $sql."AND humeur.DATE_HEURE LIKE ? "
+            if($dateHeure != null){ 
+                $sql = $sql." AND humeur.DATE_HEURE LIKE ? ";
             }
-            $sql = $sql."ORDER BY `DATE_HEURE` DESC";
+            $sql = $sql." ORDER BY `DATE_HEURE` DESC";
 
             $stmt = $pdo->prepare($sql);
             if($codeEmotion == null && $dateHeure != null){

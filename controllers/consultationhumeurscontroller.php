@@ -47,11 +47,10 @@ class consultationHumeursController implements controller
         if(isset($codeEmotion) && $codeEmotion == ""){
             $codeEmotion = null;
         }
-        if (isset($dateSaisie) && $dateSaisie != "") {
+        if (isset($dateSaisie) && $dateSaisie == "") {
             $dateSaisie = null;
         }
         $_POST['humeurs'] = humeurservice::getHumeursUtilisateur($pdo, $codeUtilisateur, $codeEmotion, $dateSaisie);
-
 
         $view->setVar('humeurs', httphelper::getParam('humeurs'));
         $view->setVar('tabEmotions', emotionsservice::getEmotions($pdo));

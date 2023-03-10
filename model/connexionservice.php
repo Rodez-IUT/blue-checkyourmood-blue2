@@ -20,7 +20,7 @@ class connexionservice
             if ($user != null) {
                 $test = true;
             }
-            return $test
+            return $test;
 
         } catch (\Exception $e) {
             var_dump($e->getMessage());

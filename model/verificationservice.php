@@ -112,4 +112,5 @@ class verificationservice
             }
         }
         return $test;
+    }
 }
