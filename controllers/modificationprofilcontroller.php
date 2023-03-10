@@ -78,13 +78,11 @@ class ModificationProfilController implements controller
         $_POST['genreOK'] = $genreOK = verificationservice::testGenre($genre);
         
         // Si toutes les variables sont valides alors on ajoute à la base de donnée
+        if ($dateNaissance == "") {
+            $dateNaissance = null;
+        }
         if ($nomOK && $prenomOK && $mailOK && $nomUtilisateurOK && $genreOK) {
-            if ($dateNaissance == "") {
-                utilisateurservice::modifierProfil($pdo, $nom, $prenom, $nomUtilisateur, $mail, $genre, null, $codeUtilisateur);
-            } else {
-                utilisateurservice::modifierProfil($pdo, $nom, $prenom, $nomUtilisateur, $mail, $genre, $dateNaissance, $codeUtilisateur);
-            }
-            
+            utilisateurservice::modifierProfil($pdo, $nom, $prenom, $nomUtilisateur, $mail, $genre, $dateNaissance, $codeUtilisateur); 
         }
 
         error_reporting(0);
