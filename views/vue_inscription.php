@@ -19,7 +19,7 @@ require 'includes/header.php';
         <!-- Formulaire d'inscription a l'application -->
         <form action="/?controller=inscription&action=creation" method="POST">
             <!-- Si la creation s'est bien déroulée on affiche un message de validation -->
-            <?php if($creation) { ?>
+            <?php if(isset($creation) && $creation) { ?>
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col">
@@ -33,14 +33,14 @@ require 'includes/header.php';
             </div>
             <?php } ?>
             <!-- Si l'identifiant est deja utilisé -->
-            <?php if(!$creation && $identifiantDejaUtilise) { ?>
+            <?php if(isset($creation) && !$creation && isset($identifiantDejaUtilise) && $identifiantDejaUtilise) { ?>
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col">
                     <div class="alert alert-danger" role="alert">
                         Erreur ! L'identifiant <?php echo ($nomUtilisateur);?> est deja utilisé.
                         <br>                        
-                        <a href="/?controller=index"" class="alert-link">Cliquez ici si vous connecter</a>
+                        <a href="/?controller=index" class="alert-link">Cliquez ici si vous connecter</a>
                     </div>
                 </div>
                 <div class="col-1"></div>
