@@ -1,9 +1,8 @@
 <?php
 require 'includes/header.php';
-
 if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
     header('Location: /?controller=index');
-  }
+}
 ?>
 <body>
     <!-- Barre de navigation -->
@@ -17,8 +16,9 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
         <div class="row">
             <div class="col-4"></div>
             <div class="col-2">
-                <form action="/?controller=consultationhumeurs&action=consulter" method="POST">
+                <form action="/?controller=consultationhumeurs&action=consulter&page=<?php echo $numeroDeLaPage ?>" method="post">
                     <input hidden value="<?php echo($_SESSION['id']); ?>" name="codeUtilisateur">
+                    <input name="pagination" value="<?php echo $numeroDeLaPage?>" hidden>
                     <input class="form-control" value="<?php if (isset($dateSaisie)) {echo ($dateSaisie);}?>" name="dateSaisie" type="date">
             </div>
             <div class="col-2">
@@ -26,11 +26,11 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                         <option value="">Sélectionnez une émotion</option>
                         <?php 
                         foreach ($tabEmotions as $emotion){
-                        ?>
-                        <option <?php if (isset($codeEmotion)) {if ($codeEmotion == $emotion['ID_EMOTION']) {echo ('selected');}}?> 
-                                value="<?php echo $emotion['ID_EMOTION']?>"><?php echo($emotion['EMOJI'].' - '.$emotion['NOM']) ?>
-                        </option>
-                        <?php
+                            ?>
+                            <option <?php if (isset($codeEmotion)) {if ($codeEmotion == $emotion['ID_EMOTION']) {echo ('selected');}}?> 
+                                    value="<?php echo $emotion['ID_EMOTION']?>"><?php echo($emotion['EMOJI'].' - '.$emotion['NOM']) ?>
+                            </option>
+                            <?php
                         }  
                         ?>
                     </select>
@@ -47,7 +47,7 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                 <div class="col-3"></div>
                 <div class="col">
                     <div class="alert alert-info" role="alert">
-                    Votre humeur a bien été supprimée.
+                        Votre humeur a bien été supprimée.
                     </div>
                 </div>
                 <div class="col-3"></div>
@@ -106,9 +106,10 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                                                <form action="/?controller=consultationHumeurs&action=supprimer" method="POST">
+                                                <form action="/?controller=consultationHumeurs&action=supprimer&page=<?php echo $numeroDeLaPage ?>" method="POST">
                                                     <input name="codeHumeur" value="<?php echo $humeur['ID_HUMEUR']?>" class="btn btn-outline-danger" hidden>
                                                     <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
+                                                    <input name="pagination" value="<?php echo $numeroDeLaPage?>" hidden>
                                                     <input type="submit" value="Confirmer la suppression" class="btn btn-outline-danger">
                                                 </form>
                                             </div>
@@ -127,42 +128,97 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
         </div>
     </div>
     <!-- Pagination -->
-    <nav aria-label="Page navigation example">
-        <ul class="pagination">
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Previous</span>
-                </a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&lsaquo;</span>
-                    <span class="sr-only">Previous</span>
-                </a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="">1</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="">2</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="">3</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&rsaquo;</span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+    <?php
+        $nombreDePage = ceil(($nombreTotalHumeur / 15));
+    ?>
+    <div class="container">
+        <div class="row">
+            <?php if (!$nombreDePage == 0) { ?>
+            <nav aria-label="Page navigation example col-md-12">
+                <ul class="pagination justify-content-center">
+                <?php if ($numeroDeLaPage != 1) { ?>
+                    <li class="page-item">
+                        <form action="/?controller=consultationHumeurs&action=consulter&page=1" method="POST">
+                            <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
+                            <input name="pagination" value="1" hidden>
+                            <input type="submit" value="&laquo;" class="page-link" >
+                        </form>
+                    </li>
+                    <li class="page-item">
+                        <form action="/?controller=consultationHumeurs&action=consulter&page=<?php echo $numeroDeLaPage - 1; ?>" method="POST">
+                            <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
+                            <input name="pagination" value="<?php echo $numeroDeLaPage - 1 ?>" hidden>
+                            <input type="submit" value="&lsaquo;" class="page-link">
+                        </form>
+                    </li>
+                    <?php } 
+                        if($numeroDeLaPage != 1 && $numeroDeLaPage != 2) {
+                        ?>
+                        <li class="page-item">
+                            <form action="/?controller=consultationHumeurs&action=consulter&page=<?php echo $numeroDeLaPage - 2?>" method="POST">
+                                <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
+                                <input name="pagination" value="<?php echo $numeroDeLaPage - 2?>" hidden>
+                                <input type="submit" value="<?php echo $numeroDeLaPage - 2?>" class="page-link">
+                            </form>
+                        </li>
+                        <?php } 
+                        if ($numeroDeLaPage != 1) {
+                        ?>
+                        <li class="page-item">
+                            <form action="/?controller=consultationHumeurs&action=consulter&page=<?php echo $numeroDeLaPage - 1?>" method="POST">
+                                <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
+                                <input name="pagination" value="<?php echo $numeroDeLaPage - 1?>" hidden>
+                                <input type="submit" value="<?php echo $numeroDeLaPage - 1?>" class="page-link">
+                            </form>
+                        </li>
+                        <?php } ?>
+                        <li class="page-item">
+                            <form action="/?controller=consultationHumeurs&action=consulter&page=<?php echo $numeroDeLaPage?>" method="POST">
+                                <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
+                                <input name="pagination" value="<?php echo $numeroDeLaPage?>" hidden>
+                                <input type="submit" value="<?php echo $numeroDeLaPage?>" class="page-link" disabled>
+                            </form>
+                        </li>
+                        <?php
+                         if ($numeroDeLaPage != $nombreDePage) { ?>
+                        <li class="page-item">
+                            <form action="/?controller=consultationHumeurs&action=consulter&page=<?php echo $numeroDeLaPage + 1?>" method="POST">
+                                <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
+                                <input name="pagination" value="<?php echo $numeroDeLaPage + 1?>" hidden>
+                                <input type="submit" value="<?php echo $numeroDeLaPage + 1?>" class="page-link">
+                            </form>
+                        </li>
+                        <?php } 
+                            if($numeroDeLaPage != $nombreDePage && $numeroDeLaPage != $nombreDePage - 1) {
+                        ?>
+                        <li class="page-item">
+                            <form action="/?controller=consultationHumeurs&action=consulter&page=<?php echo $numeroDeLaPage + 2?>" method="POST">
+                                <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
+                                <input name="pagination" value="<?php echo $numeroDeLaPage + 2?>" hidden>
+                                <input type="submit" value="<?php echo $numeroDeLaPage + 2?>" class="page-link">
+                            </form>
+                        </li>
+                    <?php }
+                        if ($numeroDeLaPage < $nombreDePage) { ?>
+                    <li class="page-item">
+                        <form action="/?controller=consultationHumeurs&action=consulter&page=<?php echo $numeroDeLaPage + 1?>" method="POST">
+                            <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
+                            <input name="pagination" value="<?php echo $numeroDeLaPage + 1 ?>" hidden>
+                            <input type="submit" value="&rsaquo;" class="page-link">
+                        </form>
+                    </li>
+                    <li class="page-item">
+                        <form action="/?controller=consultationHumeurs&action=consulter&page=<?php echo $nombreDePage ?>" method="POST">
+                            <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
+                            <input name="pagination" value="<?php echo $nombreDePage ?>" hidden>
+                            <input type="submit" value="&raquo;" class="page-link">
+                        </form>
+                    </li>
+                    <?php } ?>
+                </ul>
+            </nav>
+        <?php } ?>
+        </div>
+    </div>
 </body>
 </html>

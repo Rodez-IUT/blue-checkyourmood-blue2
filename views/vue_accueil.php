@@ -25,7 +25,8 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
             <div class="col-1"></div>
             <!-- Lien vers les humeurs de l'utilisateur avec le code utilisateur -->
             <div class="col notDraggable">
-              <form action="/?controller=consultationhumeurs&action=consulter" method="POST">
+              <form action="/?controller=consultationhumeurs&action=consulter&page=1" method="POST">
+                <input name="pagination" value="1" hidden>
                   <button class="zoom" type="submit">
                     <input hidden name="codeUtilisateur" value="<?php echo($_SESSION['id']) ?>">
                     <p class="icon-accueil">&#128301;</p>

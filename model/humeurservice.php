@@ -12,13 +12,19 @@ class humeurservice
             $sql = "SELECT *
                     FROM `humeur`
                     JOIN `emotion` ON humeur.CODE_EMOTION = emotion.ID_EMOTION
-                    WHERE humeur.CODE_UTILISATEUR = ? AND humeur.CODE_EMOTION = ? AND humeur.DATE_HEURE LIKE ? 
+                    WHERE humeur.CODE_UTILISATEUR = :id AND humeur.CODE_EMOTION = :code_emo AND humeur.DATE_HEURE LIKE :date 
                     ORDER BY `DATE_HEURE` DESC
-                    LIMIT 15 OFFSET 0-- :pagination --
+                    LIMIT 15 OFFSET :pagination
                     ";
 
             $stmt = $pdo->prepare($sql);
-            $stmt->execute([$codeUtilisateur, $codeEmotion, $dateHeure."%",'pagination'=>($pagination - 1) * 15]);
+            $pagination = (($pagination - 1) * 15);
+            $stmt->BindParam('pagination', $pagination);
+            $stmt->BindParam('id',$codeUtilisateur);
+            $stmt->BindParam('code_emo', $codeEmotion);
+            $dateHeure = $dateHeure."%";
+            $stmt->BindParam('date', $dateHeure);
+            $stmt->execute();
 
             $tabHumeurs = array();
             while ($row = $stmt->fetch()) {
@@ -35,19 +41,24 @@ class humeurservice
     }
 
     /* Recupération des humeurs selon un utilisateur et selon une date */
-    public static function getHumeursUtilisateurDate($pdo, $codeUtilisateur, $dateHeure)
+    public static function getHumeursUtilisateurDate($pdo, $codeUtilisateur, $dateHeure, $pagination)
     {
         try {
             $sql = "SELECT *
                     FROM `humeur`
                     JOIN `emotion` ON humeur.CODE_EMOTION = emotion.ID_EMOTION
-                    WHERE humeur.CODE_UTILISATEUR = ? AND humeur.DATE_HEURE LIKE ? 
+                    WHERE humeur.CODE_UTILISATEUR = :id AND humeur.DATE_HEURE LIKE :date 
                     ORDER BY `DATE_HEURE` DESC
-                    LIMIT 15 OFFSET 0
+                    LIMIT 15 OFFSET :pagination
                     ";
 
             $stmt = $pdo->prepare($sql);
-            $stmt->execute([$codeUtilisateur, $dateHeure."%"]);
+            $pagination = (($pagination - 1) * 15);
+            $stmt->BindParam('pagination', $pagination);
+            $stmt->BindParam('id',$codeUtilisateur);
+            $dateHeure = $dateHeure."%";
+            $stmt->BindParam('date', $dateHeure);
+            $stmt->execute();
 
             $tabHumeurs = array();
             while ($row = $stmt->fetch()) {
@@ -63,19 +74,23 @@ class humeurservice
     }
 
     /* Recupération des humeurs selon un utilisateur et selon l'émotion voulue */
-    public static function getHumeursUtilisateurEmotion($pdo, $codeUtilisateur, $codeEmotion)
+    public static function getHumeursUtilisateurEmotion($pdo, $codeUtilisateur, $codeEmotion, $pagination)
     {
         try {
             $sql = "SELECT *
                     FROM `humeur`
                     JOIN `emotion` ON humeur.CODE_EMOTION = emotion.ID_EMOTION
-                    WHERE humeur.CODE_UTILISATEUR = ? AND humeur.CODE_EMOTION = ? 
+                    WHERE humeur.CODE_UTILISATEUR = :id AND humeur.CODE_EMOTION = :code_emo 
                     ORDER BY `DATE_HEURE` DESC
-                    LIMIT 15 OFFSET 0
+                    LIMIT 15 OFFSET :pagination
                     ";
 
             $stmt = $pdo->prepare($sql);
-            $stmt->execute([$codeUtilisateur, $codeEmotion]);
+            $stmt->BindParam('id',$codeUtilisateur);
+            $stmt->BindParam('code_emo', $codeEmotion);
+            $pagination = (($pagination - 1) * 15);
+            $stmt->BindParam('pagination', $pagination);
+            $stmt->execute();
 
             $tabHumeurs = array();
             while ($row = $stmt->fetch()) {
@@ -91,19 +106,22 @@ class humeurservice
     }
 
     /* Recupération des humeurs selon un utilisateur */
-    public static function getHumeursUtilisateur($pdo, $codeUtilisateur)
+    public static function getHumeursUtilisateur($pdo, $codeUtilisateur, $pagination)
     {
         try {
             $sql = "SELECT *
                     FROM `humeur`
                     JOIN `emotion` ON humeur.CODE_EMOTION = emotion.ID_EMOTION
-                    WHERE humeur.CODE_UTILISATEUR = ? 
+                    WHERE humeur.CODE_UTILISATEUR = :id 
                     ORDER BY `DATE_HEURE` DESC
-                    LIMIT 15 OFFSET 0
+                    LIMIT 15 OFFSET :pagination
                     ";
 
             $stmt = $pdo->prepare($sql);
-            $stmt->execute([$codeUtilisateur]);
+            $pagination = (($pagination - 1) * 15);
+            $stmt->BindParam('pagination', $pagination); // ERREUR !!!!!!!!
+            $stmt->BindParam('id',$codeUtilisateur);
+            $stmt->execute();
 
             $tabHumeurs = array();
             while ($row = $stmt->fetch()) {
@@ -186,4 +204,86 @@ class humeurservice
             $e -> getMessage();
         }
     }
+    /**  Récupère le nombre d'humeur total d'un utilisateur 
+    * @return Le nombre d'humeur total saisie par un utilisateur (ex: si l'utilisateur à saisie 50 humeurs alors return 50)
+    */
+    public static function nombreTotalHumeurPourUtilisateur($pdo, $codeUtilisateur) {
+    try {
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM humeur join utilisateur on ID_UTILISATEUR = CODE_UTILISATEUR where ID_UTILISATEUR = :id");
+        $stmt->BindParam('id', $codeUtilisateur);
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    } catch (\Exception $e) {
+        var_dump($e->getMessage());
+        exit();
+    }
+    }
+
+    public static function nombreTotalHumeurPourUtilisateurAvecFiltres($pdo, $codeUtilisateur, $codeEmotion, $dateHeure) {
+        try{
+            $sql = "SELECT count(*)
+                    FROM `humeur`
+                    JOIN `emotion` ON humeur.CODE_EMOTION = emotion.ID_EMOTION
+                    WHERE humeur.CODE_UTILISATEUR = :id AND humeur.CODE_EMOTION = :code_emo AND humeur.DATE_HEURE LIKE :date 
+                    ORDER BY `DATE_HEURE` DESC
+                    ";
+
+            $stmt = $pdo->prepare($sql);
+            $stmt->BindParam('id',$codeUtilisateur);
+            $stmt->BindParam('code_emo', $codeEmotion);
+            $dateHeure = $dateHeure."%";
+            $stmt->BindParam('date', $dateHeure);
+            $stmt->execute();
+
+            $tabHumeurs = array();
+            
+            return $stmt->fetchColumn();
+        } catch (\Exception $e) {
+            var_dump($e->getMessage());
+            exit();
+        }
+    }
+
+    public static function nombreTotalHumeurPourUtilisateurEmotion($pdo, $codeUtilisateur, $codeEmotion) {
+        try {
+            $sql = "SELECT count(*)
+                    FROM `humeur`
+                    JOIN `emotion` ON humeur.CODE_EMOTION = emotion.ID_EMOTION
+                    WHERE humeur.CODE_UTILISATEUR = :id AND humeur.CODE_EMOTION = :code_emo 
+                    ORDER BY `DATE_HEURE` DESC
+                    ";
+
+            $stmt = $pdo->prepare($sql);
+            $stmt->BindParam('id',$codeUtilisateur);
+            $stmt->BindParam('code_emo', $codeEmotion);
+            $stmt->execute();
+
+            return $stmt->fetchColumn();
+        } catch (\Exception $e) {
+            var_dump($e->getMessage());
+            exit();
+        }
+    }
+    public static function nombreTotalHumeurPourUtilisateurDate($pdo, $codeUtilisateur, $dateHeure) {
+        try {
+            $sql = "SELECT count(*)
+                    FROM `humeur`
+                    JOIN `emotion` ON humeur.CODE_EMOTION = emotion.ID_EMOTION
+                    WHERE humeur.CODE_UTILISATEUR = :id AND humeur.DATE_HEURE LIKE :date 
+                    ORDER BY `DATE_HEURE` DESC
+                    ";
+
+            $stmt = $pdo->prepare($sql);
+            $stmt->BindParam('id',$codeUtilisateur);
+            $dateHeure = $dateHeure."%";
+            $stmt->BindParam('date', $dateHeure);
+            $stmt->execute();
+
+            return $stmt->fetchColumn();
+        } catch (\Exception $e) {
+            var_dump($e->getMessage());
+            exit();
+        }
+    }
+    
 }
