@@ -7,7 +7,7 @@
  */
 
 namespace controllers;
-
+use PDO;
 use model\utilisateurservice;
 use yasmf\view;
 use yasmf\controller;
@@ -28,7 +28,7 @@ class modificationMotDePasseController implements controller
      * @param $err message d'erreur
      * @return view vue retournée au routeur
      */
-    public function index($pdo)
+    public function index(PDO $pdo): View
     {
         $view = new view(config::getRacine() . "views/vue_modificationmotdepasse");
         $view->setVar('RACINE', config::getRacine());
@@ -40,7 +40,7 @@ class modificationMotDePasseController implements controller
      * @param pdo connexion à la base de données
      * @return view appel de la méthode index
      */
-    public function modifierMotDePasse($pdo)
+    public function modifierMotDePasse(PDO $pdo): View
     {
 
         if (httphelper::getParam('motDePasseActuel') != null && httphelper::getParam('nouveauMotDePasse') != null) {

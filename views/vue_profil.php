@@ -120,21 +120,7 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                 </div>
             </div>
         </div>
-
-        <!-- Script pour appeler la notification si l'utilisateur s'est deinscrit de checkyourmood -->
-        <script>
-            const toastTrigger = document.getElementById('confirmationSupp');
-            const toastConfirmation = document.getElementById('confirmationToast');
-
-            if (toastTrigger) {
-            toastTrigger.addEventListener('click', () => {
-                const toast = new bootstrap.Toast(toastConfirmation);
-
-                toast.show();
-            })
-            }
-        </script>
-
     </div>
+    <script src="../Jsprofils.js"></script>
 </body>
 </html>

@@ -7,7 +7,7 @@
  */
 
 namespace controllers;
-
+use PDO;
 use yasmf\view;
 use yasmf\controller;
 use yasmf\httphelper;
@@ -27,7 +27,7 @@ class inscriptionController implements controller
      * @param $err message d'erreur
      * @return view vue retournée au routeur
      */
-    public function index($pdo)
+    public function index(PDO $pdo): View
     {
         $view = new view(config::getRacine() . "views/vue_inscription");
 
@@ -59,7 +59,7 @@ class inscriptionController implements controller
      * @param pdo connexion à la base de données
      * @return view appel de la méthode index
      */
-    public function creation($pdo)
+    public function creation(PDO $pdo): View
     {
 
         if (!empty(httphelper::getParam('affichage'))) {

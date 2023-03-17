@@ -16,7 +16,7 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
         <div class="row">
             <div class="col"></div>
             <div class="col">
-                <h1 class="rougeClair">Bonjour <?php echo$_SESSION['prenom'].' '.$_SESSION['nom'] ?></h1>
+                <h1 class="rougeClair">Bonjour <?php echo $_SESSION['prenom'].' '.$_SESSION['nom'] ?></h1>
             </div>
             <div class="col"></div>
         </div>

@@ -7,7 +7,7 @@
  */
 
 namespace controllers;
-
+use PDO;
 use yasmf\view;
 use yasmf\controller;
 use yasmf\httphelper;
@@ -27,7 +27,7 @@ class visualisationHumeursController implements controller
      * @param $err message d'erreur
      * @return view vue retournée au routeur
      */
-    public function index($pdo)
+    public function index(PDO $pdo): View
     {
         $view = new view(config::getRacine() . "views/vue_visualisationhumeurs");
 
@@ -53,7 +53,7 @@ class visualisationHumeursController implements controller
      * @param pdo connexion à la base de données
      * @return view appel de la méthode index
      */
-    public function afficher($pdo)
+    public function afficher(PDO $pdo): View
     {
 
         $codeUtilisateur = httphelper::getParam('codeUtilisateur');
@@ -66,7 +66,7 @@ class visualisationHumeursController implements controller
      * @param pdo connexion à la base de données
      * @return view appel de la méthode index
      */
-    public function getDatas($pdo)
+    public function getDatas(PDO $pdo):View
     {
         $codeUtilisateur = httphelper::getParam('codeUtilisateur');
         $dateDebut = httphelper::getParam('dateDebut');
@@ -83,7 +83,7 @@ class visualisationHumeursController implements controller
      * @param pdo connexion à la base de données
      * @return view appel de la méthode index
      */
-    public function getHumeursByDate($pdo)
+    public function getHumeursByDate(PDO $pdo): View
     {
         $codeUtilisateur = httphelper::getParam('codeUtilisateur');
         $dateDebut = httphelper::getParam('dateDebut');

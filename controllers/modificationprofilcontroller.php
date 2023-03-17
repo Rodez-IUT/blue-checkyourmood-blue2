@@ -7,7 +7,7 @@
  */
 
 namespace controllers;
-
+use PDO;
 use model\connexionservice;
 use model\verificationservice;
 use yasmf\view;
@@ -28,7 +28,7 @@ class ModificationProfilController implements controller
      * @param $pdo connexion à la base de données
      * @return view vue retournée au routeur
      */
-    public function index($pdo)
+    public function index(PDO $pdo): View
     {
         $view = new view(config::getRacine() . "views/vue_modifierprofil");
         $view->setVar('RACINE', config::getRacine());
@@ -60,7 +60,7 @@ class ModificationProfilController implements controller
     /**
      * Modifie le profil de l'utilisateur
      */
-    public function modifierProfil($pdo)
+    public function modifierProfil(PDO $pdo): View
     {
         $nom = httphelper::getParam('newNom');
         $prenom = httphelper::getParam('newPrenom');
@@ -101,7 +101,7 @@ class ModificationProfilController implements controller
     /**
      * Modifie le mot de passe de l'utilisateur
      */
-    public function modifierMotDePasse($pdo)
+    public function modifierMotDePasse(PDO $pdo): View
     {
 
         $motDePasse1 = httphelper::getParam('newMotDePasse1');

@@ -7,7 +7,7 @@
  */
 
 namespace controllers;
-
+use PDO;
 use yasmf\view;
 use yasmf\controller;
 use yasmf\httphelper;
@@ -28,7 +28,7 @@ class connexionController implements controller
      * @param $err message d'erreur
      * @return view vue retournée au routeur
      */
-    public function index($pdo)
+    public function index(PDO $pdo): View
     {
         $view = new view(config::getRacine() . "views/index");
         $view->setVar('RACINE', config::getRacine());
@@ -40,7 +40,7 @@ class connexionController implements controller
      * @param pdo connexion à la base de données
      * @return view appel de la méthode index
      */
-    public function connexion($pdo)
+    public function connexion(PDO $pdo): View
     {
         $err = "";
         $connect = false;
@@ -92,7 +92,7 @@ class connexionController implements controller
      * Deconnexion
      * @return view appel de la méthode index
      */
-    public function deconnexion($pdo) 
+    public function deconnexion(PDO $pdo) 
     {
         //Récuperation de la session en cour pour la supprimer
         session_start();
