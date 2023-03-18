@@ -58,8 +58,21 @@ require 'includes/header.php';
                 <div class="col-1"></div>
             </div>
             <?php } ?>
+            <!-- si le mail n'est pas remplie -->
+            <?php if(!isset($mail)&& ) { ?>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col">
+                    <div class="alert alert-warning" role="alert">
+                       veuillez entrez un email
+                    </div>
+                </div>
+                <div class="col-1"></div>
+            </div>
+            <?php } ?>
+
             <!-- Si l'email n'est pas valide -->
-            <?php if($mail != null && !$mailOK) { ?>*
+            <?php if($mail != null && !$mailOK) { ?>
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col">
