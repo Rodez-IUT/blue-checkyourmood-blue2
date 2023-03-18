@@ -40,7 +40,7 @@ require 'includes/header.php';
                     <div class="alert alert-danger" role="alert">
                         Erreur ! L'identifiant <?php echo ($nomUtilisateur);?> est deja utilisé.
                         <br>                        
-                        <a href="/?controller=index"" class="alert-link">Cliquez ici si vous vous connectez</a>
+                        <a href="/?controller=index"" class="alert-link">Cliquez ici si vous vous connectez !</a>
                     </div>
                 </div>
                 <div class="col-1"></div>
