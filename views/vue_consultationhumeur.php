@@ -18,7 +18,7 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
             <div class="col-2">
                 <form action="/?controller=consultationhumeurs&action=consulter&page=<?php echo $numeroDeLaPage ?>" method="post">
                     <input hidden value="<?php echo($_SESSION['id']); ?>" name="codeUtilisateur">
-                    <input name="pagination" value="<?php echo $numeroDeLaPage?>" hidden>
+                    <input name="pagination" value="1" hidden>
                     <input class="form-control" value="<?php if (isset($dateSaisie)) {echo ($dateSaisie);}?>" name="dateSaisie" type="date">
             </div>
             <div class="col-2">
@@ -141,6 +141,8 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                         <form action="/?controller=consultationHumeurs&action=consulter&page=1" method="POST">
                             <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
                             <input name="pagination" value="1" hidden>
+                            <input class="form-control" value="<?php if (isset($dateSaisie)) {echo ($dateSaisie);}?>" name="dateSaisie" type="date" hidden>
+                            <input name="codeEmotion" value="<?php echo $codeEmotion?>" hidden>
                             <input type="submit" value="&laquo;" class="page-link" >
                         </form>
                     </li>
@@ -148,6 +150,8 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                         <form action="/?controller=consultationHumeurs&action=consulter&page=<?php echo $numeroDeLaPage - 1; ?>" method="POST">
                             <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
                             <input name="pagination" value="<?php echo $numeroDeLaPage - 1 ?>" hidden>
+                            <input class="form-control" value="<?php if (isset($dateSaisie)) {echo ($dateSaisie);}?>" name="dateSaisie" type="date" hidden>
+                            <input name="codeEmotion" value="<?php echo $codeEmotion?>" hidden>
                             <input type="submit" value="&lsaquo;" class="page-link">
                         </form>
                     </li>
@@ -158,6 +162,8 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                             <form action="/?controller=consultationHumeurs&action=consulter&page=<?php echo $numeroDeLaPage - 2?>" method="POST">
                                 <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
                                 <input name="pagination" value="<?php echo $numeroDeLaPage - 2?>" hidden>
+                                <input class="form-control" value="<?php if (isset($dateSaisie)) {echo ($dateSaisie);}?>" name="dateSaisie" type="date" hidden>
+                                <input name="codeEmotion" value="<?php echo $codeEmotion?>" hidden>
                                 <input type="submit" value="<?php echo $numeroDeLaPage - 2?>" class="page-link">
                             </form>
                         </li>
@@ -168,6 +174,8 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                             <form action="/?controller=consultationHumeurs&action=consulter&page=<?php echo $numeroDeLaPage - 1?>" method="POST">
                                 <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
                                 <input name="pagination" value="<?php echo $numeroDeLaPage - 1?>" hidden>
+                                <input class="form-control" value="<?php if (isset($dateSaisie)) {echo ($dateSaisie);}?>" name="dateSaisie" type="date" hidden>
+                                <input name="codeEmotion" value="<?php echo $codeEmotion?>" hidden>
                                 <input type="submit" value="<?php echo $numeroDeLaPage - 1?>" class="page-link">
                             </form>
                         </li>
@@ -176,6 +184,8 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                             <form action="/?controller=consultationHumeurs&action=consulter&page=<?php echo $numeroDeLaPage?>" method="POST">
                                 <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
                                 <input name="pagination" value="<?php echo $numeroDeLaPage?>" hidden>
+                                <input class="form-control" value="<?php if (isset($dateSaisie)) {echo ($dateSaisie);}?>" name="dateSaisie" type="date" hidden>
+                                <input name="codeEmotion" value="<?php echo $codeEmotion?>" hidden>
                                 <input type="submit" value="<?php echo $numeroDeLaPage?>" class="page-link" disabled>
                             </form>
                         </li>
@@ -185,6 +195,8 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                             <form action="/?controller=consultationHumeurs&action=consulter&page=<?php echo $numeroDeLaPage + 1?>" method="POST">
                                 <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
                                 <input name="pagination" value="<?php echo $numeroDeLaPage + 1?>" hidden>
+                                <input class="form-control" value="<?php if (isset($dateSaisie)) {echo ($dateSaisie);}?>" name="dateSaisie" type="date" hidden>
+                                <input name="codeEmotion" value="<?php echo $codeEmotion?>" hidden>
                                 <input type="submit" value="<?php echo $numeroDeLaPage + 1?>" class="page-link">
                             </form>
                         </li>
@@ -195,6 +207,8 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                             <form action="/?controller=consultationHumeurs&action=consulter&page=<?php echo $numeroDeLaPage + 2?>" method="POST">
                                 <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
                                 <input name="pagination" value="<?php echo $numeroDeLaPage + 2?>" hidden>
+                                <input class="form-control" value="<?php if (isset($dateSaisie)) {echo ($dateSaisie);}?>" name="dateSaisie" type="date" hidden>
+                                <input name="codeEmotion" value="<?php echo $codeEmotion?>" hidden>
                                 <input type="submit" value="<?php echo $numeroDeLaPage + 2?>" class="page-link">
                             </form>
                         </li>
@@ -204,6 +218,8 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                         <form action="/?controller=consultationHumeurs&action=consulter&page=<?php echo $numeroDeLaPage + 1?>" method="POST">
                             <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
                             <input name="pagination" value="<?php echo $numeroDeLaPage + 1 ?>" hidden>
+                            <input class="form-control" value="<?php if (isset($dateSaisie)) {echo ($dateSaisie);}?>" name="dateSaisie" type="date" hidden>
+                            <input name="codeEmotion" value="<?php echo $codeEmotion?>" hidden>
                             <input type="submit" value="&rsaquo;" class="page-link">
                         </form>
                     </li>
@@ -211,6 +227,8 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                         <form action="/?controller=consultationHumeurs&action=consulter&page=<?php echo $nombreDePage ?>" method="POST">
                             <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
                             <input name="pagination" value="<?php echo $nombreDePage ?>" hidden>
+                            <input class="form-control" value="<?php if (isset($dateSaisie)) {echo ($dateSaisie);}?>" name="dateSaisie" type="date" hidden>
+                            <input name="codeEmotion" value="<?php echo $codeEmotion?>" hidden>
                             <input type="submit" value="&raquo;" class="page-link">
                         </form>
                     </li>
