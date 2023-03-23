@@ -1,9 +1,8 @@
 <?php
 require 'includes/header.php';
-
 if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
     header('Location: /?controller=index');
-  }
+}
 ?>
 <body>
     <!-- Barre de navigation -->
@@ -17,8 +16,9 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
         <div class="row">
             <div class="col-4"></div>
             <div class="col-2">
-                <form action="/?controller=consultationhumeurs&action=consulter" method="POST">
+                <form action="/?controller=consultationhumeurs&action=consulter&page=<?php echo $numeroDeLaPage ?>" method="post">
                     <input hidden value="<?php echo($_SESSION['id']); ?>" name="codeUtilisateur">
+                    <input name="pagination" value="1" hidden>
                     <input class="form-control" value="<?php if (isset($dateSaisie)) {echo ($dateSaisie);}?>" name="dateSaisie" type="date">
             </div>
             <div class="col-2">
@@ -26,11 +26,11 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                         <option value="">Sélectionnez une émotion</option>
                         <?php 
                         foreach ($tabEmotions as $emotion){
-                        ?>
-                        <option <?php if (isset($codeEmotion)) {if ($codeEmotion == $emotion['ID_EMOTION']) {echo ('selected');}}?> 
-                                value="<?php echo $emotion['ID_EMOTION']?>"><?php echo($emotion['EMOJI'].' - '.$emotion['NOM']) ?>
-                        </option>
-                        <?php
+                            ?>
+                            <option <?php if (isset($codeEmotion)) {if ($codeEmotion == $emotion['ID_EMOTION']) {echo ('selected');}}?> 
+                                    value="<?php echo $emotion['ID_EMOTION']?>"><?php echo($emotion['EMOJI'].' - '.$emotion['NOM']) ?>
+                            </option>
+                            <?php
                         }  
                         ?>
                     </select>
@@ -47,7 +47,7 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                 <div class="col-3"></div>
                 <div class="col">
                     <div class="alert alert-info" role="alert">
-                    Votre humeur a bien été supprimée.
+                        Votre humeur a bien été supprimée.
                     </div>
                 </div>
                 <div class="col-3"></div>
@@ -106,9 +106,10 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                                                <form action="/?controller=consultationHumeurs&action=supprimer" method="POST">
+                                                <form action="/?controller=consultationHumeurs&action=supprimer&page=<?php echo $numeroDeLaPage ?>" method="POST">
                                                     <input name="codeHumeur" value="<?php echo $humeur['ID_HUMEUR']?>" class="btn btn-outline-danger" hidden>
                                                     <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
+                                                    <input name="pagination" value="<?php echo $numeroDeLaPage?>" hidden>
                                                     <input type="submit" value="Confirmer la suppression" class="btn btn-outline-danger">
                                                 </form>
                                             </div>
@@ -126,8 +127,6 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
             <div class="col-1"></div>
         </div>
     </div>
-<<<<<<< Updated upstream
-=======
     <!-- Pagination -->
     <?php
         $nombreDePage = ceil(($nombreTotalHumeur / 15));
@@ -244,6 +243,5 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
         <?php } ?>
         </div>
     </div>
->>>>>>> Stashed changes
 </body>
 </html>

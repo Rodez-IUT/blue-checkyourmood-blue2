@@ -38,24 +38,30 @@ class consultationHumeursController implements controller
         $view->setVar('codeEmotion', httphelper::getParam('codeEmotion'));
         $view->setVar('codeUtilisateur', httphelper::getParam('codeUtilisateur'));
         $view->setVar('humeurSupp', httphelper::getParam('humeurSupp'));
-
-        $codeUtilisateur = httphelper::getParam('codeUtilisateur');
+        
 
         //Filtres possibles
         $codeEmotion = httphelper::getParam('codeEmotion');
         $dateSaisie = httphelper::getParam('dateSaisie');
+        $pagination = httphelper::getParam('pagination');
+        $view->setVar('numeroDeLaPage', $pagination);
         if (isset($dateSaisie) && $dateSaisie != "" && isset($codeEmotion) && $codeEmotion != "") {
-            $_POST['humeurs'] = humeurservice::getHumeursUtilisateurFiltres($pdo, $codeUtilisateur, $codeEmotion, $dateSaisie);
+            $_POST['humeurs'] = humeurservice::getHumeursUtilisateurFiltres($pdo, $codeUtilisateur, $codeEmotion, $dateSaisie, $pagination);
+            $nrbHumeurAfficher = humeurservice::nombreTotalHumeurPourUtilisateurAvecFiltres($pdo, $codeUtilisateur, $codeEmotion, $dateSaisie);
         } else if (isset($codeEmotion) && $codeEmotion != "") {
-            $_POST['humeurs'] = humeurservice::getHumeursUtilisateurEmotion($pdo, $codeUtilisateur, $codeEmotion);
+            $_POST['humeurs'] = humeurservice::getHumeursUtilisateurEmotion($pdo, $codeUtilisateur, $codeEmotion, $pagination);
+            $nrbHumeurAfficher = humeurservice::nombreTotalHumeurPourUtilisateurEmotion($pdo, $codeUtilisateur, $codeEmotion);
         } else if (isset($dateSaisie) && $dateSaisie != "") {
-            $_POST['humeurs'] = humeurservice::getHumeursUtilisateurDate($pdo, $codeUtilisateur, $dateSaisie);
+            $_POST['humeurs'] = humeurservice::getHumeursUtilisateurDate($pdo, $codeUtilisateur, $dateSaisie, $pagination);
+            $nrbHumeurAfficher = humeurservice::nombreTotalHumeurPourUtilisateurDate($pdo, $codeUtilisateur, $dateSaisie);
         } else {
-            $_POST['humeurs'] = humeurservice::getHumeursUtilisateur($pdo, $codeUtilisateur);
+            $_POST['humeurs'] = humeurservice::getHumeursUtilisateur($pdo, $codeUtilisateur, $pagination);
+            $nrbHumeurAfficher = humeurservice::nombreTotalHumeurPourUtilisateur($pdo, $codeUtilisateur);
         }
 
         $view->setVar('humeurs', httphelper::getParam('humeurs'));
         $view->setVar('tabEmotions', emotionsservice::getEmotions($pdo));
+        $view->setVar('nombreTotalHumeur', $nrbHumeurAfficher);
 
         return $view;
     }  
