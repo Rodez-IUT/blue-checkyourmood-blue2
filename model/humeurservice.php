@@ -219,6 +219,12 @@ class humeurservice
     }
     }
 
+    /**
+     * @param $codeUtilisateur id de l'utilisateur
+     * @param $codeEmotion humeur saisie
+     * @param $dateHeure date saisie par l'utilisateur
+     * @return Le nombre total d'humeur aprés les avoir filtré par émotions et par date
+     */
     public static function nombreTotalHumeurPourUtilisateurAvecFiltres($pdo, $codeUtilisateur, $codeEmotion, $dateHeure) {
         try{
             $sql = "SELECT count(*)
@@ -244,6 +250,11 @@ class humeurservice
         }
     }
 
+    /**
+     * @param $codeUtilisateur id de l'utilisateur
+     * @param $codeEmotion humeur saisie
+     * @return Le nombre total d'humeur aprés les avoir filtré par émotions 
+     */
     public static function nombreTotalHumeurPourUtilisateurEmotion($pdo, $codeUtilisateur, $codeEmotion) {
         try {
             $sql = "SELECT count(*)
@@ -264,6 +275,12 @@ class humeurservice
             exit();
         }
     }
+
+    /**
+     * @param $codeUtilisateur id de l'utilisateur
+     * @param $dateHeure date saisie par l'utilisateur
+     * @return Le nombre total d'humeur aprés les avoir filtré par dates
+     */
     public static function nombreTotalHumeurPourUtilisateurDate($pdo, $codeUtilisateur, $dateHeure) {
         try {
             $sql = "SELECT count(*)
