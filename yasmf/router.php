@@ -51,17 +51,17 @@ class router {
                 try {
                     $view->render();
                 } catch (\Error $e) {
-                    // header("Location: /?controller=erreur&err=view");
+                    header("Location: /?controller=erreur&err=view");
                     var_dump($e);
                     exit();
                 }
             } catch (\Error $e) {
-                // header("Location: /?controller=erreur&err=controller");
+                header("Location: /?controller=erreur&err=controller");
                 var_dump($e);
                 exit();
             }
         } catch (\Error $e) {
-            // header("Location: /?controller=erreur&err=router");
+            header("Location: /?controller=erreur&err=router");
             var_dump($e);
             exit();
         }
