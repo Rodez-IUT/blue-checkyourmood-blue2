@@ -34,7 +34,7 @@ class stathumeurservice
             return $texteFinal;
         } catch (\Exception $e) {
             var_dump($e->getMessage());
-            exit();
+            
         }
     }
 
@@ -64,7 +64,7 @@ class stathumeurservice
             return $texteFinal;
         } catch (\Exception $e) {
             var_dump($e->getMessage());
-            exit();
+            
         }
     }
 
@@ -93,7 +93,7 @@ class stathumeurservice
             return $texteFinal;
         } catch (\Exception $e) {
             var_dump($e->getMessage());
-            exit();
+            
         }
     }
 
@@ -140,7 +140,7 @@ class stathumeurservice
             return $texteFinal;
         } catch (\Exception $e) {
             var_dump($e->getMessage());
-            exit();
+            
         }
     }
 
