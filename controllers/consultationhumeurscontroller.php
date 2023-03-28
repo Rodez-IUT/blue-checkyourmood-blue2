@@ -92,4 +92,3 @@ class consultationHumeursController implements controller
     }
 
 }
-
