@@ -24,6 +24,7 @@ class utilisateurservice
             $stmt->execute([$nom, $prenom, $nomUtilisateur, $mdp, $mail,  $genre, $dateNaissance]);
             $_GET['creation'] = true;
             $pdo->commit();
+
         } catch (\PDOException $e) {
             $code = $e -> getCode();
             if ($code == 23000) {
@@ -33,11 +34,11 @@ class utilisateurservice
                 $_GET['exception'] = $e;
             }
             $pdo->rollBack();
+
         } catch (\Exception $e) {
             $_GET['creation'] = false;
             $e->getMessage();
             $_GET['exception'] = $e;
-            var_dump($e);
             $pdo->rollBack();
         }
        
@@ -49,10 +50,10 @@ class utilisateurservice
         $sql = "DELETE FROM `utilisateur` WHERE ID_UTILISATEUR = ?";
         $pdo->beginTransaction();
         try {
-
             $stmt = $pdo->prepare($sql);
             $stmt->execute([$codeUtilisateur]);
             $pdo->commit();
+
         } catch (Exception $e) {
             $pdo->rollBack();
             $e -> getMessage();
@@ -79,6 +80,7 @@ class utilisateurservice
             $stmt->execute([$nom, $prenom, $nomUtilisateur, $mail, $genre, $dateNaissance, $codeUtilisateur]);
             $_GET['modification'] = true;
             $pdo->commit();
+
         } catch (\PDOException $e) {
             $code = $e -> getCode();
             if ($code == 23000) {
@@ -88,6 +90,7 @@ class utilisateurservice
                 $_GET['exception'] = $e;
             }
             $pdo->rollBack();
+
         } catch (\Exception $e) {
             $pdo->rollBack();
             $e->getMessage();
@@ -112,6 +115,7 @@ class utilisateurservice
             $stmt->execute([$motDePasse, $codeUtilisateur]);
             $_GET['modification'] = true;
             $pdo->commit();
+            
         } catch (\Exception $e) {
             $pdo->rollBack();
             $e->getMessage();

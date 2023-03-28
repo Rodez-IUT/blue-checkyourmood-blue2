@@ -7,7 +7,7 @@
  */
 
 namespace controllers;
-
+use PDO;
 use yasmf\view;
 use yasmf\controller;
 use yasmf\config;
@@ -20,10 +20,10 @@ use yasmf\config;
 class indexController implements controller
 {
     /**
-     * @param $pdo connexion à la base de données
+     * @param PDO $pdo connexion à la base de données
      * @return view vue retournée au routeur
      */
-    public function index($pdo)
+    public function index(PDO $pdo): View
     {
         $view = new view(config::getRacine() . "views/index");
         $view->setVar('RACINE', config::getRacine());

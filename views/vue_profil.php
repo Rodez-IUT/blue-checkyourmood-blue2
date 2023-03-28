@@ -31,18 +31,18 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                     <div class="gauche">
                         <label class="form-label">Genre</label>
                         <select disabled class="form-select">
-                            <?php if ($_SESSION['genre'] == "homme") { ?>
-                            <option value="homme" selected>homme</option>
-                            <option value="femme">femme</option>
-                            <option value="autre">autre</option>
-                            <?php } else if ($_SESSION['genre'] == "femme") { ?>
-                            <option value="homme">homme</option>
-                            <option value="femme" selected>femme</option>
-                            <option value="autre">autre</option>
+                            <?php if ($_SESSION['genre'] == "Homme") { ?>
+                            <option value="Homme" selected>Homme</option>
+                            <option value="Femme">Femme</option>
+                            <option value="Autre">Autre</option>
+                            <?php } else if ($_SESSION['genre'] == "Femme") { ?>
+                            <option value="Homme">Homme</option>
+                            <option value="Femme" selected>Femme</option>
+                            <option value="Autre">Autre</option>
                             <?php } else { ?>
-                            <option value="homme">homme</option>
-                            <option value="femme">femme</option>
-                            <option value="autre" selected>autre</option>
+                            <option value="Homme">Homme</option>
+                            <option value="Femme">Femme</option>
+                            <option value="Autre" selected>Autre</option>
                             <?php } ?>
                         </select>
                     </div>
@@ -120,21 +120,7 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                 </div>
             </div>
         </div>
-
-        <!-- Script pour appeler la notification si l'utilisateur s'est deinscrit de checkyourmood -->
-        <script>
-            const toastTrigger = document.getElementById('confirmationSupp');
-            const toastConfirmation = document.getElementById('confirmationToast');
-
-            if (toastTrigger) {
-            toastTrigger.addEventListener('click', () => {
-                const toast = new bootstrap.Toast(toastConfirmation);
-
-                toast.show();
-            })
-            }
-        </script>
-
     </div>
+    <script src="../Jsprofils.js"></script>
 </body>
 </html>
