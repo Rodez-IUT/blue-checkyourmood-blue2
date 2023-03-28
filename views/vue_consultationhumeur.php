@@ -136,7 +136,6 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
             <?php if (!$nombreDePage == 0) { ?>
             <nav aria-label="Page navigation example col-md-12">
                 <ul class="pagination justify-content-center">
-                <!-- Bouton double flêche gauche -->
                 <?php if ($numeroDeLaPage != 1) { ?>
                     <li class="page-item">
                         <form action="/?controller=consultationHumeurs&action=consulter&page=1" method="POST">
@@ -147,7 +146,6 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                             <input type="submit" value="&laquo;" class="page-link" >
                         </form>
                     </li>
-                    <!-- Bouton simple flêche gauche -->
                     <li class="page-item">
                         <form action="/?controller=consultationHumeurs&action=consulter&page=<?php echo $numeroDeLaPage - 1; ?>" method="POST">
                             <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
@@ -158,7 +156,6 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                         </form>
                     </li>
                     <?php } 
-                        // Numéros de page
                         if($numeroDeLaPage != 1 && $numeroDeLaPage != 2) {
                         ?>
                         <li class="page-item">
@@ -217,7 +214,6 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                         </li>
                     <?php }
                         if ($numeroDeLaPage < $nombreDePage) { ?>
-                    <!-- Flêche simple de droite -->
                     <li class="page-item">
                         <form action="/?controller=consultationHumeurs&action=consulter&page=<?php echo $numeroDeLaPage + 1?>" method="POST">
                             <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
@@ -227,7 +223,6 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                             <input type="submit" value="&rsaquo;" class="page-link">
                         </form>
                     </li>
-                    <!-- Flêche double de droite -->
                     <li class="page-item">
                         <form action="/?controller=consultationHumeurs&action=consulter&page=<?php echo $nombreDePage ?>" method="POST">
                             <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
