@@ -24,7 +24,11 @@ require 'includes/header.php';
                 <div class="col-1"></div>
                 <div class="col">
                     <div class="alert alert-success" role="alert">
-                        Bienvenue sur CheckYourMood ! Votre compte a bien été enregistré.    
+                        Bienvenue sur CheckYourMood ! Votre compte a bien été enregistré.
+                        <?php
+                            header('Location: /?controller=index');
+                            exit();
+                        ?>
                         <br>                        
                         <a href="/?controller=index" class="alert-link">Vous pouvez vous connecter avec vos identifiants</a>
                     </div>
