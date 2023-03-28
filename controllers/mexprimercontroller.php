@@ -33,7 +33,7 @@ class mexprimerController implements controller
 
         $view->setVar('tabEmotions', emotionsservice::getEmotions($pdo));
 
-        $view->setVar('description', httphelper::getParam('newDescription'));
+        $view->setVar('description', htmlspecialchars(httphelper::getParam(('newDescription'))));
         $view->setVar('dateHeure', httphelper::getParam('newDateHeure'));
         $view->setVar('codeEmotion', httphelper::getParam('newCodeEmotion'));
         $view->setVar('codeUtilisateur', httphelper::getParam('newCodeUtilisateur'));
@@ -59,7 +59,7 @@ class mexprimerController implements controller
         $dateHeure = httphelper::getParam('newDateHeure');
         $codeEmotion = httphelper::getParam('newCodeEmotion');
         $codeUtilisateur = httphelper::getParam('newCodeUtilisateur');
-
+        $description = htmlspecialchars($description);
         humeurservice::ajoutHumeur($pdo, $description, $dateHeure, $codeUtilisateur, $codeEmotion);
 
     return $this->index($pdo);

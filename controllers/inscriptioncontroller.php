@@ -31,14 +31,14 @@ class inscriptionController implements controller
     {
         $view = new view(config::getRacine() . "views/vue_inscription");
 
-        $view->setVar('nom', httphelper::getParam('newNom'));
-        $view->setVar('prenom', httphelper::getParam('newPrenom'));
-        $view->setVar('mail', httphelper::getParam('newMail'));
-        $view->setVar('nomUtilisateur', httphelper::getParam('newNomUtilisateur'));
-        $view->setVar('genre', httphelper::getParam('newGenre'));
-        $view->setVar('dateNaissance', httphelper::getParam('newDateNaissance'));
-        $view->setVar('motDePasse1', httphelper::getParam('newMotDePasse1'));
-        $view->setVar('motDePasse2', httphelper::getParam('newMotDePasse2'));
+        $view->setVar('nom', htmlspecialchars(httphelper::getParam('newNom')));
+        $view->setVar('prenom', htmlspecialchars(httphelper::getParam('newPrenom')));
+        $view->setVar('mail', htmlspecialchars(httphelper::getParam('newMail')));
+        $view->setVar('nomUtilisateur', htmlspecialchars(httphelper::getParam('newNomUtilisateur')));
+        $view->setVar('genre', htmlspecialchars(httphelper::getParam('newGenre')));
+        $view->setVar('dateNaissance', htmlspecialchars(httphelper::getParam('newDateNaissance')));
+        $view->setVar('motDePasse1', htmlspecialchars(httphelper::getParam('newMotDePasse1')));
+        $view->setVar('motDePasse2', htmlspecialchars(httphelper::getParam('newMotDePasse2')));
 
         $view->setVar('nomOK', httphelper::getParam('nomOK'));
         $view->setVar('prenomOK', httphelper::getParam('prenomOK'));
@@ -50,7 +50,7 @@ class inscriptionController implements controller
         $view->setVar('motDePasse2OK', httphelper::getParam('motDePasse2OK'));
         $view->setVar('creation', httphelper::getParam('creation'));
         $view->setVar('identifiantDejaUtilise', httphelper::getParam('identifiantDejaUtilise'));
-        
+        $view->setVar('affichage', httphelper::getParam('affichage'));
 
 
         return $view;
@@ -75,6 +75,16 @@ class inscriptionController implements controller
             $dateNaissance = httphelper::getParam('newDateNaissance');
             $motDePasse1 = httphelper::getParam('newMotDePasse1');
             $motDePasse2 = httphelper::getParam('newMotDePasse2');
+
+            // sécurisation 
+            $nom = htmlspecialchars($nom);
+            $prenom = htmlspecialchars($prenom);
+            $mail = htmlspecialchars($mail);
+            $nomUtilisateur = htmlspecialchars($nomUtilisateur);
+            $genre = htmlspecialchars($genre);
+            $dateNaissance = htmlspecialchars($dateNaissance);
+            $motDePasse1 = htmlspecialchars($motDePasse1);
+            $motDePasse2 = htmlspecialchars($motDePasse2);
 
             // Test des variables
             $_POST['nomOK'] = $nomOK = verificationservice::testNom($nom);
