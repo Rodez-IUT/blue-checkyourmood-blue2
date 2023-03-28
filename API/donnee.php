@@ -28,6 +28,7 @@
 		}
     }
 
+	/* affiche les données en json */
     function affichageDonne() {
         try {
             $pdo=getPDO();
@@ -48,6 +49,8 @@
 			sendJSON($infos, 500) ;
 		}
     }
+
+	/* permet de saisir une humeur */
     function saisieHumeur($id, $humeur, $desc) {
 		try {
 			$pdo=getPDO();
