@@ -145,7 +145,6 @@ class humeurservice
     /* Ajout d'une humeur */
     public static function ajoutHumeur($pdo, $description, $dateHeure, $codeUtilisateur, $codeEmotion)
     {
-
         $sql = "INSERT INTO `humeur` (`DESCRIPTION`, `DATE_HEURE`, `CODE_UTILISATEUR`, `CODE_EMOTION`) 
                 VALUES (?, ?, ?, ?)";
 
