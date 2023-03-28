@@ -28,6 +28,8 @@
 		}
     }
 
+
+
 	/* affiche les données en json */
     function affichageDonne() {
         try {
@@ -52,23 +54,22 @@
 
 	/* permet de saisir une humeur */
     function saisieHumeur($id, $humeur, $desc) {
-		try {
-			$pdo=getPDO();
-        	$maRequete = "INSERT INTO humeur (`DESCRIPTION`, `DATE_HEURE`, `CODE_UTILISATEUR`, `CODE_EMOTION`)
-					VALUE (:description, CURRENT_TIMESTAMP, :id, :humeur)";
-			$stmt = $pdo->prepare($maRequete);
-			$stmt->BindParam("description", $desc);
-			$stmt->BindParam("id", $id);
-			$stmt->BindParam("humeur", $humeur);
-			$stmt->execute();
-			$stmt->closeCursor();
-			$stmt=null;
-			$pdo=null;
-		} catch(PDOException $e){
-			$infos['Statut']="KO";
-			$infos['message']=$e->getMessage();
-			sendJSON($infos, 500) ;
-		}
-		
+      try {
+        $pdo=getPDO();
+            $maRequete = "INSERT INTO humeur (`DESCRIPTION`, `DATE_HEURE`, `CODE_UTILISATEUR`, `CODE_EMOTION`)
+            VALUE (:description, CURRENT_TIMESTAMP, :id, :humeur)";
+        $stmt = $pdo->prepare($maRequete);
+        $stmt->BindParam("description", $desc);
+        $stmt->BindParam("id", $id);
+        $stmt->BindParam("humeur", $humeur);
+        $stmt->execute();
+        $stmt->closeCursor();
+        $stmt=null;
+        $pdo=null;
+      } catch(PDOException $e){
+        $infos['Statut']="KO";
+        $infos['message']=$e->getMessage();
+        sendJSON($infos, 500) ;
+      }
     }
 ?>

@@ -28,6 +28,7 @@
                         $humeur = $url[2];
                         $desc = $url[3];
                         saisieHumeur($id, $humeur, $desc);
+
                         break;
                     default : 
 						$infos['Statut']="KO";
