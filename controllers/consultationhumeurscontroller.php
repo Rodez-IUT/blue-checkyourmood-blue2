@@ -43,14 +43,10 @@ class consultationHumeursController implements controller
         //Filtres possibles
         $codeEmotion = httphelper::getParam('codeEmotion');
         $dateSaisie = httphelper::getParam('dateSaisie');
-
-        // pagination de la liste des humeurs
         $pagination = httphelper::getParam('pagination');
         $view->setVar('numeroDeLaPage', $pagination);
         if (isset($dateSaisie) && $dateSaisie != "" && isset($codeEmotion) && $codeEmotion != "") {
             $_POST['humeurs'] = humeurservice::getHumeursUtilisateurFiltres($pdo, $codeUtilisateur, $codeEmotion, $dateSaisie, $pagination);
-
-            // récupère le nombre total d'humeurs pour la pagination
             $nrbHumeurAfficher = humeurservice::nombreTotalHumeurPourUtilisateurAvecFiltres($pdo, $codeUtilisateur, $codeEmotion, $dateSaisie);
         } else if (isset($codeEmotion) && $codeEmotion != "") {
             $_POST['humeurs'] = humeurservice::getHumeursUtilisateurEmotion($pdo, $codeUtilisateur, $codeEmotion, $pagination);
