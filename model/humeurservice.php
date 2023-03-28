@@ -14,7 +14,6 @@ class humeurservice
             $sql = "SELECT *
                     FROM `humeur`
                     JOIN `emotion` ON humeur.CODE_EMOTION = emotion.ID_EMOTION
-
                     WHERE humeur.CODE_UTILISATEUR = :id AND humeur.CODE_EMOTION = :code_emo AND humeur.DATE_HEURE LIKE :date 
                     ORDER BY `DATE_HEURE` DESC
                     LIMIT 15 OFFSET :pagination
