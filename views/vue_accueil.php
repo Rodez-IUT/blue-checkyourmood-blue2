@@ -23,7 +23,7 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
         <p class="espace2"></p>
         <div class="row">
             <div class="col-1"></div>
-            <!-- Lien vers les humeurs de l'utilisateur avec le code utilisateur -->
+            <!-- Lien vers les humeurs de l'utilisateur avec le code utilisateur et la page 1 par défaut-->
             <div class="col notDraggable">
               <form action="/?controller=consultationhumeurs&action=consulter&page=1" method="POST">
                 <input name="pagination" value="1" hidden>
