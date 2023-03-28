@@ -71,18 +71,18 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                     <div class="gauche">
                         <label class="form-label">Genre <i>(optionnel)</i></label>
                         <select class="form-select" name="newGenre">
-                            <?php if ($_SESSION['genre'] == "homme") { ?>
-                            <option value="homme" selected>homme</option>
-                            <option value="femme">femme</option>
-                            <option value="autre">autre</option>
-                            <?php } else if ($_SESSION['genre'] == "femme") { ?>
-                            <option value="homme">homme</option>
-                            <option value="femme" selected>femme</option>
-                            <option value="autre">autre</option>
+                            <?php if ($_SESSION['genre'] == "Homme") { ?>
+                            <option value="Homme" selected>Homme</option>
+                            <option value="Femme">Femme</option>
+                            <option value="Autre">Autre</option>
+                            <?php } else if ($_SESSION['genre'] == "Femme") { ?>
+                            <option value="Homme">Homme</option>
+                            <option value="Femme" selected>Femme</option>
+                            <option value="Autre">Autre</option>
                             <?php } else { ?>
-                            <option value="homme">homme</option>
-                            <option value="femme">femme</option>
-                            <option value="autre" selected>autre</option>
+                            <option value="Homme">Homme</option>
+                            <option value="Femme">Femme</option>
+                            <option value="Autre" selected>Autre</option>
                             <?php } ?>
                         </select>
                     </div>

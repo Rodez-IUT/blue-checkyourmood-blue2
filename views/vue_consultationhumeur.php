@@ -1,9 +1,8 @@
 <?php
 require 'includes/header.php';
-
 if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
     header('Location: /?controller=index');
-  }
+}
 ?>
 <body>
     <!-- Barre de navigation -->
@@ -17,8 +16,9 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
         <div class="row">
             <div class="col-4"></div>
             <div class="col-2">
-                <form action="/?controller=consultationhumeurs&action=consulter" method="POST">
+                <form action="/?controller=consultationhumeurs&action=consulter&page=<?php echo $numeroDeLaPage ?>" method="post">
                     <input hidden value="<?php echo($_SESSION['id']); ?>" name="codeUtilisateur">
+                    <input name="pagination" value="1" hidden>
                     <input class="form-control" value="<?php if (isset($dateSaisie)) {echo ($dateSaisie);}?>" name="dateSaisie" type="date">
             </div>
             <div class="col-2">
@@ -26,11 +26,11 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                         <option value="">Sélectionnez une émotion</option>
                         <?php 
                         foreach ($tabEmotions as $emotion){
-                        ?>
-                        <option <?php if (isset($codeEmotion)) {if ($codeEmotion == $emotion['ID_EMOTION']) {echo ('selected');}}?> 
-                                value="<?php echo $emotion['ID_EMOTION']?>"><?php echo($emotion['EMOJI'].' - '.$emotion['NOM']) ?>
-                        </option>
-                        <?php
+                            ?>
+                            <option <?php if (isset($codeEmotion)) {if ($codeEmotion == $emotion['ID_EMOTION']) {echo ('selected');}}?> 
+                                    value="<?php echo $emotion['ID_EMOTION']?>"><?php echo($emotion['EMOJI'].' - '.$emotion['NOM']) ?>
+                            </option>
+                            <?php
                         }  
                         ?>
                     </select>
@@ -47,7 +47,7 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                 <div class="col-3"></div>
                 <div class="col">
                     <div class="alert alert-info" role="alert">
-                    Votre humeur a bien été supprimée.
+                        Votre humeur a bien été supprimée.
                     </div>
                 </div>
                 <div class="col-3"></div>
@@ -88,30 +88,31 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
 
                                     $dateAComparer = date_format($dateHeure,"Y-m-d H:i:s");
 
-                                    if ($dateAComparer > $dateMoinsDeuxHeures)  {
-                                    ?>
-                                        <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalSuppr">Supprimer</button>
-                                    <?php } ?>
-                                    
-                                    <!-- Modal contenant la confirmation de la suppression de l'humeur -->
-                                    <div class="modal fade" id="modalSuppr">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">Confirmation de suppression d'une humeur </h5>
-                                                    <button class="btn-close" data-bs-dismiss="modal"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Vous êtes sur le point de supprimer une humeur. Confirmez-vous cette suppression ?
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                                                    <form action="/?controller=consultationHumeurs&action=supprimer" method="POST">
-                                                        <input name="codeHumeur" value="<?php echo $humeur['ID_HUMEUR']?>" class="btn btn-outline-danger" hidden>
-                                                        <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
-                                                        <input type="submit" value="Confirmer la suppression" class="btn btn-outline-danger">
-                                                    </form>
-                                                </div>
+
+                                if ($dateAComparer > $dateMoinsDeuxHeures)  {
+                                ?>
+                                    <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalSuppr">Supprimer</button>
+                                <?php } ?>
+                                
+                                <!-- Modal contenant la confirmation de la suppression de l'humeur -->
+                                <div class="modal fade" id="modalSuppr">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Confirmation de suppression d'une humeur </h5>
+                                                <button class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Vous êtes sur le point de supprimer une humeur. Confirmez-vous cette suppression ?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                                <form action="/?controller=consultationHumeurs&action=supprimer&page=<?php echo $numeroDeLaPage ?>" method="POST">
+                                                    <input name="codeHumeur" value="<?php echo $humeur['ID_HUMEUR']?>" class="btn btn-outline-danger" hidden>
+                                                    <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
+                                                    <input name="pagination" value="<?php echo $numeroDeLaPage?>" hidden>
+                                                    <input type="submit" value="Confirmer la suppression" class="btn btn-outline-danger">
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -124,6 +125,117 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                 </table>
             </div>
             <div class="col-1"></div>
+        </div>
+    </div>
+    <!-- Pagination -->
+    <?php
+        $nombreDePage = ceil(($nombreTotalHumeur / 15));
+    ?>
+    <div class="container">
+        <div class="row">
+            <?php if (!$nombreDePage == 0) { ?>
+            <nav aria-label="Page navigation example col-md-12">
+                <ul class="pagination justify-content-center">
+                <?php if ($numeroDeLaPage != 1) { ?>
+                    <li class="page-item">
+                        <form action="/?controller=consultationHumeurs&action=consulter&page=1" method="POST">
+                            <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
+                            <input name="pagination" value="1" hidden>
+                            <input class="form-control" value="<?php if (isset($dateSaisie)) {echo ($dateSaisie);}?>" name="dateSaisie" type="date" hidden>
+                            <input name="codeEmotion" value="<?php echo $codeEmotion?>" hidden>
+                            <input type="submit" value="&laquo;" class="page-link" >
+                        </form>
+                    </li>
+                    <li class="page-item">
+                        <form action="/?controller=consultationHumeurs&action=consulter&page=<?php echo $numeroDeLaPage - 1; ?>" method="POST">
+                            <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
+                            <input name="pagination" value="<?php echo $numeroDeLaPage - 1 ?>" hidden>
+                            <input class="form-control" value="<?php if (isset($dateSaisie)) {echo ($dateSaisie);}?>" name="dateSaisie" type="date" hidden>
+                            <input name="codeEmotion" value="<?php echo $codeEmotion?>" hidden>
+                            <input type="submit" value="&lsaquo;" class="page-link">
+                        </form>
+                    </li>
+                    <?php } 
+                        if($numeroDeLaPage != 1 && $numeroDeLaPage != 2) {
+                        ?>
+                        <li class="page-item">
+                            <form action="/?controller=consultationHumeurs&action=consulter&page=<?php echo $numeroDeLaPage - 2?>" method="POST">
+                                <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
+                                <input name="pagination" value="<?php echo $numeroDeLaPage - 2?>" hidden>
+                                <input class="form-control" value="<?php if (isset($dateSaisie)) {echo ($dateSaisie);}?>" name="dateSaisie" type="date" hidden>
+                                <input name="codeEmotion" value="<?php echo $codeEmotion?>" hidden>
+                                <input type="submit" value="<?php echo $numeroDeLaPage - 2?>" class="page-link">
+                            </form>
+                        </li>
+                        <?php } 
+                        if ($numeroDeLaPage != 1) {
+                        ?>
+                        <li class="page-item">
+                            <form action="/?controller=consultationHumeurs&action=consulter&page=<?php echo $numeroDeLaPage - 1?>" method="POST">
+                                <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
+                                <input name="pagination" value="<?php echo $numeroDeLaPage - 1?>" hidden>
+                                <input class="form-control" value="<?php if (isset($dateSaisie)) {echo ($dateSaisie);}?>" name="dateSaisie" type="date" hidden>
+                                <input name="codeEmotion" value="<?php echo $codeEmotion?>" hidden>
+                                <input type="submit" value="<?php echo $numeroDeLaPage - 1?>" class="page-link">
+                            </form>
+                        </li>
+                        <?php } ?>
+                        <li class="page-item">
+                            <form action="/?controller=consultationHumeurs&action=consulter&page=<?php echo $numeroDeLaPage?>" method="POST">
+                                <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
+                                <input name="pagination" value="<?php echo $numeroDeLaPage?>" hidden>
+                                <input class="form-control" value="<?php if (isset($dateSaisie)) {echo ($dateSaisie);}?>" name="dateSaisie" type="date" hidden>
+                                <input name="codeEmotion" value="<?php echo $codeEmotion?>" hidden>
+                                <input type="submit" value="<?php echo $numeroDeLaPage?>" class="page-link" disabled>
+                            </form>
+                        </li>
+                        <?php
+                         if ($numeroDeLaPage != $nombreDePage) { ?>
+                        <li class="page-item">
+                            <form action="/?controller=consultationHumeurs&action=consulter&page=<?php echo $numeroDeLaPage + 1?>" method="POST">
+                                <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
+                                <input name="pagination" value="<?php echo $numeroDeLaPage + 1?>" hidden>
+                                <input class="form-control" value="<?php if (isset($dateSaisie)) {echo ($dateSaisie);}?>" name="dateSaisie" type="date" hidden>
+                                <input name="codeEmotion" value="<?php echo $codeEmotion?>" hidden>
+                                <input type="submit" value="<?php echo $numeroDeLaPage + 1?>" class="page-link">
+                            </form>
+                        </li>
+                        <?php } 
+                            if($numeroDeLaPage != $nombreDePage && $numeroDeLaPage != $nombreDePage - 1) {
+                        ?>
+                        <li class="page-item">
+                            <form action="/?controller=consultationHumeurs&action=consulter&page=<?php echo $numeroDeLaPage + 2?>" method="POST">
+                                <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
+                                <input name="pagination" value="<?php echo $numeroDeLaPage + 2?>" hidden>
+                                <input class="form-control" value="<?php if (isset($dateSaisie)) {echo ($dateSaisie);}?>" name="dateSaisie" type="date" hidden>
+                                <input name="codeEmotion" value="<?php echo $codeEmotion?>" hidden>
+                                <input type="submit" value="<?php echo $numeroDeLaPage + 2?>" class="page-link">
+                            </form>
+                        </li>
+                    <?php }
+                        if ($numeroDeLaPage < $nombreDePage) { ?>
+                    <li class="page-item">
+                        <form action="/?controller=consultationHumeurs&action=consulter&page=<?php echo $numeroDeLaPage + 1?>" method="POST">
+                            <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
+                            <input name="pagination" value="<?php echo $numeroDeLaPage + 1 ?>" hidden>
+                            <input class="form-control" value="<?php if (isset($dateSaisie)) {echo ($dateSaisie);}?>" name="dateSaisie" type="date" hidden>
+                            <input name="codeEmotion" value="<?php echo $codeEmotion?>" hidden>
+                            <input type="submit" value="&rsaquo;" class="page-link">
+                        </form>
+                    </li>
+                    <li class="page-item">
+                        <form action="/?controller=consultationHumeurs&action=consulter&page=<?php echo $nombreDePage ?>" method="POST">
+                            <input name="codeUtilisateur" value="<?php echo($_SESSION['id'])?>" hidden>
+                            <input name="pagination" value="<?php echo $nombreDePage ?>" hidden>
+                            <input class="form-control" value="<?php if (isset($dateSaisie)) {echo ($dateSaisie);}?>" name="dateSaisie" type="date" hidden>
+                            <input name="codeEmotion" value="<?php echo $codeEmotion?>" hidden>
+                            <input type="submit" value="&raquo;" class="page-link">
+                        </form>
+                    </li>
+                    <?php } ?>
+                </ul>
+            </nav>
+        <?php } ?>
         </div>
     </div>
 </body>
