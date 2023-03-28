@@ -12,6 +12,12 @@
                     case "affichage":
                         affichageDonne();
                         break;
+                    case "emotion":
+                        affichageEmotion();
+                        break;
+                    case "utilisateur":
+                        affichageUtilisateur();
+                        break;
                     default : 
 						$infos['Statut']="KO";
 						$infos['message']=$url[0]." inexistant";

@@ -28,13 +28,52 @@
 		}
     }
 
-
-
-	/* affiche les données en json */
     function affichageDonne() {
         try {
             $pdo=getPDO();
             $maRequete = "SELECT * FROM utilisateur join humeur on ID_UTILISATEUR = CODE_UTILISATEUR join emotion on humeur.CODE_EMOTION = emotion.ID_EMOTION";
+            
+            $stmt = $pdo->prepare($maRequete);										// Préparation de la requête
+			$stmt->execute();	
+				
+			$clients=$stmt->fetchALL();
+			$stmt->closeCursor();
+			$stmt=null;
+			$pdo=null;
+
+			sendJSON($clients, 200) ;
+        } catch(PDOException $e){
+			$infos['Statut']="KO";
+			$infos['message']=$e->getMessage();
+			sendJSON($infos, 500) ;
+		}
+    }
+
+	function affichageUtilisateur() {
+        try {
+            $pdo=getPDO();
+            $maRequete = "SELECT * FROM utilisateur ";
+            
+            $stmt = $pdo->prepare($maRequete);										// Préparation de la requête
+			$stmt->execute();	
+				
+			$clients=$stmt->fetchALL();
+			$stmt->closeCursor();
+			$stmt=null;
+			$pdo=null;
+
+			sendJSON($clients, 200) ;
+        } catch(PDOException $e){
+			$infos['Statut']="KO";
+			$infos['message']=$e->getMessage();
+			sendJSON($infos, 500) ;
+		}
+    }
+
+	function affichageEmotion() {
+        try {
+            $pdo=getPDO();
+            $maRequete = "SELECT * FROM emotion ";
             
             $stmt = $pdo->prepare($maRequete);										// Préparation de la requête
 			$stmt->execute();	
