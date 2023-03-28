@@ -146,7 +146,7 @@ require 'includes/header.php';
             <?php } ?>
 
             <!-- si le mail n'est pas remplie -->
-            <?php if(!isset($mail)&& ) { ?>
+            <?php if(!isset($mail)) { ?>
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col">
