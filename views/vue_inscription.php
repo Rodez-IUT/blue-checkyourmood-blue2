@@ -19,7 +19,7 @@ require 'includes/header.php';
         <!-- Formulaire d'inscription a l'application -->
         <form action="/?controller=inscription&action=creation" method="POST">
             <!-- Si la creation s'est bien déroulée on affiche un message de validation -->
-            <?php if($creation) { ?>
+            <?php if(isset($creation) && $creation) { ?>
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col">
@@ -32,7 +32,9 @@ require 'includes/header.php';
                 <div class="col-1"></div>
             </div>
             <?php } ?>
-            <?php if(!$creation && $identifiantDejaUtilise) { ?>
+            <!-- Si l'identifiant est deja utilisé -->
+            <?php if(isset($creation) && !$creation && isset($identifiantDejaUtilise) && $identifiantDejaUtilise) { ?>
+
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col">
@@ -220,24 +222,18 @@ require 'includes/header.php';
                     <select class="form-select <?php if ($genreOK) { echo 'is-valid'; } ?>" name="newGenre">
                         <option value="">Veuillez renseigner un genre</option>
                         <option 
-                                <?php if (isset($genre)) {
-                                        if ($genre == 'Homme') {
-                                            echo ('selected');
-                                        }
+                            <?php   if (isset($genre) && $genre == 'Homme') {
+                                        echo ('selected');
                                     }
-                                ?> value="Homme">Homme</option>
+                            ?> value="Homme">Homme</option>
                         <option 
-                                <?php if (isset($genre)) {
-                                        if ($genre == 'Femme') {
+                                <?php if (isset($genre) && $genre == 'Femme') {
                                             echo ('selected');
-                                        }
                                     }
                                 ?> value="Femme">Femme</option>
                         <option 
-                                <?php if (isset($genre)) {
-                                        if ($genre == 'Autre') {
+                                <?php if (isset($genre) && $genre == 'Autre') {
                                             echo ('selected');
-                                        }
                                     }
                                 ?> value="Autre">Autre</option>
                     </select>
@@ -254,7 +250,7 @@ require 'includes/header.php';
             <!-- Bouton s'inscrire -->
             <div class="row">
                 <div class="col">
-                    <input class="btn btn-primary btn-lg" type="submit" value="S'inscrire" >
+                    <input class="btn btn-primary btn-lg" type="submit" value="S'inscrire">
                 </div>
             </div>
             <p class="espace0"></p>
