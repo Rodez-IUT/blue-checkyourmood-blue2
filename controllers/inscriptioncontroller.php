@@ -50,8 +50,8 @@ class inscriptionController implements controller
         $view->setVar('motDePasse2OK', httphelper::getParam('motDePasse2OK'));
         $view->setVar('creation', httphelper::getParam('creation'));
         $view->setVar('identifiantDejaUtilise', httphelper::getParam('identifiantDejaUtilise'));
-        
         $view->setVar('affichage', httphelper::getParam('affichage'));
+
 
         return $view;
     }  
