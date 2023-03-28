@@ -7,7 +7,7 @@
  */
 
 namespace controllers;
-
+use PDO;
 use yasmf\view;
 use yasmf\controller;
 use yasmf\httphelper;
@@ -27,13 +27,13 @@ class mexprimerController implements controller
      * @param $err message d'erreur
      * @return view vue retournée au routeur
      */
-    public function index($pdo)
+    public function index(PDO $pdo): View
     {
         $view = new view(config::getRacine() . "views/vue_saisirhumeur");
 
         $view->setVar('tabEmotions', emotionsservice::getEmotions($pdo));
 
-        $view->setVar('description', httphelper::getParam('newDescription'));
+        $view->setVar('description', htmlspecialchars(httphelper::getParam(('newDescription'))));
         $view->setVar('dateHeure', httphelper::getParam('newDateHeure'));
         $view->setVar('codeEmotion', httphelper::getParam('newCodeEmotion'));
         $view->setVar('codeUtilisateur', httphelper::getParam('newCodeUtilisateur'));
@@ -52,14 +52,14 @@ class mexprimerController implements controller
      * @param pdo connexion à la base de données
      * @return view appel de la méthode index
      */
-    public function exprimer($pdo)
+    public function exprimer(PDO $pdo): View
     {
         // Récupération variable
         $description = httphelper::getParam('newDescription');
         $dateHeure = httphelper::getParam('newDateHeure');
         $codeEmotion = httphelper::getParam('newCodeEmotion');
         $codeUtilisateur = httphelper::getParam('newCodeUtilisateur');
-
+        $description = htmlspecialchars($description);
         humeurservice::ajoutHumeur($pdo, $description, $dateHeure, $codeUtilisateur, $codeEmotion);
 
     return $this->index($pdo);

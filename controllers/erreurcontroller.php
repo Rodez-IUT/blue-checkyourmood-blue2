@@ -7,7 +7,7 @@
  */
 
 namespace controllers;
-
+use PDO;
 use yasmf\view;
 use yasmf\controller;
 use yasmf\config;
@@ -24,13 +24,11 @@ class erreurController implements controller
      * @param pdo connexion à la base de données
      * @return view vue retournée au routeur
      */
-    public function index($pdo)
+    public function index(PDO $pdo): View
     {
         $view = new view(config::getRacine() . "views/pageerreur");
-
         $err = httphelper::getParam('err');
         $view->setVar('err', $err);
-        
         return $view;
     }
 }

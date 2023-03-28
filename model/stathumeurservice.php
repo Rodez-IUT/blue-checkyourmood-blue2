@@ -32,9 +32,10 @@ class stathumeurservice
             $texteSansCrochets = str_replace(["[", "]"], "",$texte);
             $texteFinal = $texteFinal.$texteSansCrochets."]";   
             return $texteFinal;
+
         } catch (\Exception $e) {
             var_dump($e->getMessage());
-            exit();
+            
         }
     }
 
@@ -62,9 +63,10 @@ class stathumeurservice
             $texteSansCrochets = str_replace(["[", "]"], "",$texte);
             $texteFinal = $texteFinal.$texteSansCrochets."]";   
             return $texteFinal;
+
         } catch (\Exception $e) {
             var_dump($e->getMessage());
-            exit();
+            
         }
     }
 
@@ -91,9 +93,10 @@ class stathumeurservice
             $texteSansCrochets = str_replace(["[", "]"], "",$texte);
             $texteFinal = $texteFinal.$texteSansCrochets."]";
             return $texteFinal;
+
         } catch (\Exception $e) {
             var_dump($e->getMessage());
-            exit();
+            
         }
     }
 
@@ -138,11 +141,10 @@ class stathumeurservice
             $texteSansCrochets = str_replace(["[", "]"], "",$texte);
             $texteFinal = $texteFinal.$texteSansCrochets."]";
             return $texteFinal;
+
         } catch (\Exception $e) {
             var_dump($e->getMessage());
-            exit();
+            
         }
     }
-
-
 }

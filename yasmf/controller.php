@@ -4,9 +4,8 @@
  * controller.php
  * @CheckYourMood 2022-2023
  */
-
 namespace yasmf;
-
+use PDO;
 /**
  * Interface implémentée par tout les controllers
  * @package yasmf
@@ -20,5 +19,5 @@ interface controller
      * @param $pdo connexion à la base de données. Permet de "recycler" la connexion à la base de données
      * @return mixed vue envoyée au routeur
      */
-    public function index($pdo);
+    public function index(PDO $pdo): View;
 }

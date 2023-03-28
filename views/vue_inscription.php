@@ -19,7 +19,7 @@ require 'includes/header.php';
         <!-- Formulaire d'inscription a l'application -->
         <form action="/?controller=inscription&action=creation" method="POST">
             <!-- Si la creation s'est bien déroulée on affiche un message de validation -->
-            <?php if($creation) { ?>
+            <?php if(isset($creation) && $creation) { ?>
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col">
@@ -33,21 +33,107 @@ require 'includes/header.php';
             </div>
             <?php } ?>
             <!-- Si l'identifiant est deja utilisé -->
-            <?php if(!$creation && $identifiantDejaUtilise) { ?>
+            <?php if(isset($creation) && !$creation && isset($identifiantDejaUtilise) && $identifiantDejaUtilise) { ?>
+
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col">
                     <div class="alert alert-danger" role="alert">
                         Erreur ! L'identifiant <?php echo ($nomUtilisateur);?> est deja utilisé.
                         <br>                        
-                        <a href="/?controller=index"" class="alert-link">Cliquez ici si vous connecter</a>
+                        <a href="/?controller=index" class="alert-link">Cliquez ici si vous connecter</a>
                     </div>
                 </div>
                 <div class="col-1"></div>
             </div>
             <?php } ?>
+            <!-- Si le nom n'est pas renseigner-->
+            <?php if($affichage==1 && !$nomOK) { ?>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col">
+                    <div class="alert alert-danger" role="alert">
+                        Erreur ! le nom n'est pas renseigner
+                        <br>                        
+                        
+                    </div>
+                </div>
+                <div class="col-1"></div>
+            </div>
+            <?php } ?>
+            <!-- Si le prénom n'est pas renseigner-->
+            <?php if($affichage==1 && !$prenomOK) { ?>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col">
+                    <div class="alert alert-danger" role="alert">
+                        Erreur ! le prénom de l'utilisateur n'est pas renseigner
+                        <br>                        
+                        
+                    </div>
+                </div>
+                <div class="col-1"></div>
+            </div>
+            <?php } ?>
+            <!-- Si le pseudo n'est pas renseigner-->
+            <?php if($affichage==1 && !$nomUtilisateurOK) { ?>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col">
+                    <div class="alert alert-danger" role="alert">
+                        Erreur ! le pseudo de l'utilisateur n'est pas renseigner
+                        <br>                        
+                        
+                    </div>
+                </div>
+                <div class="col-1"></div>
+            </div>
+            <?php } ?>
+            <!-- Si le mail n'est pas renseigner-->
+            <?php if($affichage==1 && $mail=="") { ?>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col">
+                    <div class="alert alert-danger" role="alert">
+                        Erreur ! le mail de l'utilisateur n'est pas renseigner
+                        <br>                        
+                        
+                    </div>
+                </div>
+                <div class="col-1"></div>
+            </div>
+            <?php } ?>
+            <!-- Si le motDePasse n'est pas renseigner-->
+            <?php if($affichage==1 && !$motDePasse1OK) { ?>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col">
+                    <div class="alert alert-danger" role="alert">
+                        Erreur ! le motDePasse de l'utilisateur n'est pas renseigner
+                        <br>                        
+                        
+                    </div>
+                </div>
+                <div class="col-1"></div>
+            </div>
+            <?php } ?>
+            <!-- Si le motDePasse2 n'est pas renseigner-->
+            <?php if($affichage==1   && $motDePasse2 =="") { ?>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col">
+                    <div class="alert alert-danger" role="alert">
+                        Erreur ! vous n'avez pas confirmez votre mot de passe
+                        <br>                        
+                        
+                    </div>
+                </div>
+                <div class="col-1"></div>
+            </div>
+            <?php } ?>
+            
             <!-- Si les 2 mots de passes ne correspondent pas -->
-            <?php if($motDePasse1OK && !$motDePasse2OK) { ?>
+            <?php if($affichage == 1 && $motDePasse2 !=="" && $motDePasse1OK && !$motDePasse2OK) { ?>
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col">
@@ -58,8 +144,22 @@ require 'includes/header.php';
                 <div class="col-1"></div>
             </div>
             <?php } ?>
+
+            <!-- si le mail n'est pas remplie -->
+            <?php if(!isset($mail)&& ) { ?>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col">
+                    <div class="alert alert-warning" role="alert">
+                       veuillez entrez un email
+                    </div>
+                </div>
+                <div class="col-1"></div>
+            </div>
+            <?php } ?>
+
             <!-- Si l'email n'est pas valide -->
-            <?php if($mail != null && !$mailOK) { ?>*
+            <?php if($mail != null && !$mailOK) { ?>
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col">
@@ -76,11 +176,13 @@ require 'includes/header.php';
                 <div class="col-1"></div>
                 <div class="col-5">
                     <label for="newNom"  class="form-label">Nom</label>
-                    <input pattern="\w{2,80}" title="Le nom  ne doit pas depasser 80 caractere" name="newNom" value="<?php if ($nomOK) { echo $nom; } ?>" type="Text" placeholder="Saisissez votre nom" class="form-control <?php if ($nomOK) { echo 'is-valid'; } ?>" required>
+                   
+                    <input pattern="\w{2,80}" title="Le nom  ne doit pas depasser 80 caractere" name="newNom" value="<?php if ($nomOK) { echo ($nom); } ?>" type="Text" placeholder="Saisissez votre nom" class="form-control <?php if ($nomOK) { echo 'is-valid'; } ?>" >
                 </div>
+
                 <div class="col-5">
                     <label for="newPrenom" class="form-label">Prenom</label>
-                    <input pattern="\w{2,80}" title="Le prenom ne doit pas depasser 80 caractere" name="newPrenom" value="<?php if ($prenomOK) { echo $prenom; } ?>" type="Text" placeholder="Saisissez votre prenom" class="form-control <?php if ($prenomOK) { echo 'is-valid'; } ?>" required>
+                    <input pattern="\w{2,80}" title="Le prenom ne doit pas depasser 80 caractere" name="newPrenom" value="<?php if ($prenomOK) { echo ($prenom); } ?>" type="Text" placeholder="Saisissez votre prenom" class="form-control <?php if ($prenomOK) { echo 'is-valid'; } ?>" >
                 </div>
                 <div class="col-1"></div>
             </div>
@@ -90,11 +192,11 @@ require 'includes/header.php';
                 <div class="col-1"></div>
                 <div class="col-5">
                     <label for="newNomUtilisateur" class="form-label">Nom d'utilisateur</label>
-                    <input pattern="\w{2,80}" title="Le nom d'utilisateur ne doit pas depasser 80 caractere" name="newNomUtilisateur" value="<?php if ($nomUtilisateurOK) { echo $nomUtilisateur; } ?>" type="Text" placeholder="Saisissez votre nom d'utilisateur" class="form-control <?php if ($nomUtilisateurOK) { echo 'is-valid'; } ?>" required>
+                    <input pattern="\w{2,80}" title="Le nom d'utilisateur ne doit pas depasser 80 caractere" name="newNomUtilisateur" value="<?php if ($nomUtilisateurOK) { echo ($nomUtilisateur); } ?>" type="Text" placeholder="Saisissez votre nom d'utilisateur" class="form-control <?php if ($nomUtilisateurOK) { echo 'is-valid'; } ?>" >
                 </div>
                 <div class="col-5">
                     <label for="newMail" class="form-label">Adresse Mail</label>
-                    <input name="newMail" value="<?php if ($mailOK) { echo $mail; } ?>" type="Text" placeholder="Saisissez votre adresse mail" class="form-control <?php if ($mailOK) { echo 'is-valid'; } ?>" required>
+                    <input name="newMail" value="<?php echo ($mail); ?>" type="Text" placeholder="Saisissez votre adresse mail" class="form-control <?php if ($mailOK) { echo 'is-valid'; } ?>" >
                 </div>
                 <div class="col-1"></div>
             </div>
@@ -103,11 +205,11 @@ require 'includes/header.php';
                 <div class="col-1"></div>
                 <div class="col-5">
                     <label class="form-label">Mot de passe</label>
-                    <input name="newMotDePasse1" value="<?php if ($motDePasse1OK) { echo $motDePasse1; } ?>" type="password" placeholder="Saisissez votre mot de passe" class="form-control <?php if ($motDePasse1OK) { echo 'is-valid'; } ?>" required>
+                    <input name="newMotDePasse1" value="<?php if ($motDePasse1OK) { echo ($motDePasse1); } ?>" type="password" placeholder="Saisissez votre mot de passe" class="form-control <?php if ($motDePasse1OK) { echo 'is-valid'; } ?>" >
                 </div>
                 <div class="col-5">
                     <label class="form-label">Confirmation de mot de passe</label>
-                    <input name="newMotDePasse2" value="<?php if ($motDePasse2OK) { echo $motDePasse2; } ?>" type="password" placeholder="Confirmez votre mot de passe" class="form-control <?php if ($motDePasse2OK) { echo 'is-valid'; } ?>" required>
+                    <input name="newMotDePasse2" value="<?php if ($motDePasse2OK) { echo ($motDePasse2); } ?>" type="password" placeholder="Confirmez votre mot de passe" class="form-control <?php if ($motDePasse2OK) { echo 'is-valid'; } ?>" >
                 </div>
                 <div class="col-1"></div>
             </div>
@@ -120,24 +222,18 @@ require 'includes/header.php';
                     <select class="form-select <?php if ($genreOK) { echo 'is-valid'; } ?>" name="newGenre">
                         <option value="">Veuillez renseigner un genre</option>
                         <option 
-                                <?php if (isset($genre)) {
-                                        if ($genre == 'Homme') {
-                                            echo ('selected');
-                                        }
+                            <?php   if (isset($genre) && $genre == 'Homme') {
+                                        echo ('selected');
                                     }
-                                ?> value="Homme">Homme</option>
+                            ?> value="Homme">Homme</option>
                         <option 
-                                <?php if (isset($genre)) {
-                                        if ($genre == 'Femme') {
+                                <?php if (isset($genre) && $genre == 'Femme') {
                                             echo ('selected');
-                                        }
                                     }
                                 ?> value="Femme">Femme</option>
                         <option 
-                                <?php if (isset($genre)) {
-                                        if ($genre == 'Autre') {
+                                <?php if (isset($genre) && $genre == 'Autre') {
                                             echo ('selected');
-                                        }
                                     }
                                 ?> value="Autre">Autre</option>
                     </select>
@@ -154,7 +250,7 @@ require 'includes/header.php';
             <!-- Bouton s'inscrire -->
             <div class="row">
                 <div class="col">
-                    <input class="btn btn-primary btn-lg" type="submit" value="S'inscrire" >
+                    <input class="btn btn-primary btn-lg" type="submit" value="S'inscrire">
                 </div>
             </div>
             <p class="espace0"></p>
