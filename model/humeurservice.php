@@ -6,9 +6,7 @@ class humeurservice
 {
 
     /* Recupération des humeurs selon un utilisateur et selon l'émotion voulue et selon une date */
-
     public static function getHumeursUtilisateurFiltres($pdo, $codeUtilisateur, $codeEmotion, $dateHeure, $pagination)
-
     {
         try{
             $sql = "SELECT *
@@ -38,7 +36,7 @@ class humeurservice
             return $tabHumeurs;
         } catch (\Exception $e) {
             var_dump($e->getMessage());
-            
+            exit();
         }
     }
 
@@ -71,7 +69,7 @@ class humeurservice
             return $tabHumeurs;
         } catch (\Exception $e) {
             var_dump($e->getMessage());
-            
+            exit();
         }
     }
 
@@ -103,7 +101,7 @@ class humeurservice
             return $tabHumeurs;
         } catch (\Exception $e) {
             var_dump($e->getMessage());
-           
+            exit();
         }
     }
 
@@ -125,25 +123,23 @@ class humeurservice
             $stmt->BindParam('id',$codeUtilisateur);
             $stmt->execute();
 
-                $stmt->execute([$codeUtilisateur,$codeEmotion,$dateHeure."%"]);  //recherche humeur avec emotion et date
-            }
             $tabHumeurs = array();
             while ($row = $stmt->fetch()) {
                 $tabHumeurs[] = array(
-                    'DATE_HEURE' => $row['DATE_HEURE'], 'EMOJI' => $row['EMOJI'], 'NOM' => $row['NOM'], 'DESCRIPTION' => $row['DESCRIPTION'],
-                    'CODE_EMOTION' => $row['CODE_EMOTION'], 'ID_HUMEUR' => $row['ID_HUMEUR']
+                    'DATE_HEURE' => $row['DATE_HEURE'], 'EMOJI' => $row['EMOJI'], 'NOM' => $row['NOM'], 'DESCRIPTION' => $row['DESCRIPTION'], 'CODE_EMOTION' => $row['CODE_EMOTION'], 'ID_HUMEUR' => $row['ID_HUMEUR']
                 );
             }
             return $tabHumeurs;
         } catch (\Exception $e) {
             var_dump($e->getMessage());
-            
+            exit();
         }
     }
 
     /* Ajout d'une humeur */
     public static function ajoutHumeur($pdo, $description, $dateHeure, $codeUtilisateur, $codeEmotion)
     {
+
         $sql = "INSERT INTO `humeur` (`DESCRIPTION`, `DATE_HEURE`, `CODE_UTILISATEUR`, `CODE_EMOTION`) 
                 VALUES (?, ?, ?, ?)";
 
@@ -159,10 +155,8 @@ class humeurservice
             $code = $e -> getCode();
             if ($code == 78945) {
                 $_GET['dateHeureOK'] = false;
-
             } else if ($code == 22001) {
                 $_GET['descriptionOK'] = false;
-                
             } else {
                 $e->getMessage();
                 $_GET['exception'] = $e;
@@ -185,8 +179,8 @@ class humeurservice
 
             $stmt->execute([$codeUtilisateur, $idHumeur]);
             $pdo->commit(); 
-            $_GET['humeurSupp'] = true;
 
+            $_GET['humeurSupp'] = true;
         } catch (\Exception $e) {
             $pdo->rollBack();
             $e -> getMessage();
@@ -200,11 +194,11 @@ class humeurservice
         $pdo->beginTransaction(); 
         
         try {
+
             $stmt = $pdo->prepare("DELETE FROM humeur WHERE CODE_UTILISATEUR = ?");
 
             $stmt->execute([$codeUtilisateur]);
             $pdo->commit();
-
         } catch (\Exception $e) {
             $pdo->rollBack();
             $e -> getMessage();

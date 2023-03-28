@@ -7,6 +7,7 @@
  */
 
 namespace controllers;
+
 use PDO;
 use yasmf\view;
 use yasmf\controller;
@@ -58,7 +59,6 @@ class consultationHumeursController implements controller
             $_POST['humeurs'] = humeurservice::getHumeursUtilisateur($pdo, $codeUtilisateur, $pagination);
             $nrbHumeurAfficher = humeurservice::nombreTotalHumeurPourUtilisateur($pdo, $codeUtilisateur);
         }
-        $_POST['humeurs'] = humeurservice::getHumeursUtilisateur($pdo, $codeUtilisateur, $codeEmotion, $dateSaisie);
 
         $view->setVar('humeurs', httphelper::getParam('humeurs'));
         $view->setVar('tabEmotions', emotionsservice::getEmotions($pdo));
@@ -82,7 +82,7 @@ class consultationHumeursController implements controller
      * @param pdo connexion à la base de données
      * @return view appel de la méthode index
      */
-    public function supprimer(PDO $pdo)
+    public function supprimer(PDO $pdo): View
     {
         $codeUtilisateur = httphelper::getParam('codeUtilisateur');
         $codeHumeur = httphelper::getParam('codeHumeur');
@@ -93,3 +93,4 @@ class consultationHumeursController implements controller
     }
 
 }
+

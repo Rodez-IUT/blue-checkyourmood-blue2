@@ -78,16 +78,15 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                                 <!-- Verification si la date est inferieure a 2 heures pour afficher le bouton supprimer -->
                                 
                                 <td>
-                                    <?php 
-                                    $startTime = date("Y-m-d H:i:s");
+                                <?php 
+                                $startTime = date("Y-m-d H:i:s");
 
-                                    //Fuseau horaire +1
-                                    $dateDebut = date('Y-m-d H:i:s', strtotime('+1 hours', strtotime($startTime)));
+                                //Fuseau horaire +1
+                                $dateDebut = date('Y-m-d H:i:s', strtotime('+1 hours', strtotime($startTime)));
 
-                                    $dateMoinsDeuxHeures = date('Y-m-d H:i:s', strtotime('-2 hours', strtotime($startTime)));
+                                $dateMoinsDeuxHeures = date('Y-m-d H:i:s', strtotime('-2 hours', strtotime($startTime)));
 
-                                    $dateAComparer = date_format($dateHeure,"Y-m-d H:i:s");
-
+                                $dateAComparer = date_format($dateHeure,"Y-m-d H:i:s");
 
                                 if ($dateAComparer > $dateMoinsDeuxHeures)  {
                                 ?>
@@ -116,6 +115,7 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                                             </div>
                                         </div>
                                     </div>
+                                </div>
                                 </td>
                             </tr>
                         <?php
