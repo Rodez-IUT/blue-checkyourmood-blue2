@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">CheckYourMood</string>
+    <string name="accueil_connexion">Bienvenue, connectez-vous !</string>
+    <string name="Authenti">AUTHENTIFICATION</string>
+    <string name="identifiant">Identifiant</string>
+    <string name="placeholder_identifiant">Saisissez votre identifiant</string>
+    <string name="Mot_de_passe">Mot de passe</string>
+    <string name="placeholder_Mot_de_passe">Saisissez votre Mot de passe</string>
+    <string name="connexion">connexion</string>
+    <string name="message_erreur_connexion">Erreur de connexion, vérifier votre réseau</string>
+    <string name="message_erreur">Erreur 404</string>
+</resources>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.projetsae.MainActivity">
+
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:padding="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/Titre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@color/red"
+            android:textSize="@dimen/title"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/accueil_connexion" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bordure"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="@string/Authenti"
+            android:textColor="@color/black"
+            android:textSize="@dimen/Authen"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/identifiant"
+            android:textSize="@dimen/ident"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/identifiant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/placeholder_identifiant"
+            android:singleLine="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/ident"
+            android:text="@string/Mot_de_passe"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/MotDePasse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/placeholder_Mot_de_passe"
+            android:singleLine="true"/>
+
+        <Button
+            android:layout_width="116dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:layout_margin="10dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button"
+            android:text="@string/connexion"
+            android:onClick="clicConnexion"/>
+
+    </LinearLayout>
+
+</TableLayout>
