@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 
 
 
-class VerificationServiceTest extends TestCase {
+class testverifiactionservice extends TestCase {
 
     public function testNom() {
         $this->assertTrue(verificationservice::testNom("test"));

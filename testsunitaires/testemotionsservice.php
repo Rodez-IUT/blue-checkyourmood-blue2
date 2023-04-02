@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 
 
-class EmotionsServiceTest extends TestCase {
+class testemotionsservice extends TestCase {
 
     public function getPDO() {
         try {
