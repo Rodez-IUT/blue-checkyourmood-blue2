@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Mon application</string>
+    <string name="emotions_label">Sélectionnez une émotion :</string>
+    <string name="description_label">Description :</string>
+    <string name="description_hint">Entrez une description de votre émotion...</string>
+    <string name="saisir_emotion_button_text">Saisir l\'émotion</string>
+</resources>
