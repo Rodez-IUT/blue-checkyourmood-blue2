@@ -10,7 +10,12 @@
                 $url = explode("/", filter_var($_GET['demande'],FILTER_SANITIZE_URL));
                 switch($url[0]) {
                     case "affichage":
-                        affichageDonne();
+                        if(isset($url[1])){
+                            getHumeursUtilisateur($url[1]);
+                        }else{
+                            affichageDonne();
+                        }
+                        
                         break;
                     case "emotion":
                         affichageEmotion();
