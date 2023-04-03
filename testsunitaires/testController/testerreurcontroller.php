@@ -1,4 +1,5 @@
 <?php
+require_once("controllers/erreurcontroller.php");
 use PHPUnit\Framework\TestCase;
 use controllers\erreurController;
 

@@ -1,9 +1,11 @@
 <?php
-require_once 'model/connexionservice.php';
+require_once('model/connexionservice.php');
+require_once("controllers/connexioncontroller.php");
 use yasmf\config;
 use PHPUnit\Framework\TestCase;
 use controllers\connexioncontroller;
 use model\connexionservice;
+use yasmf\httphelper;
 
 use PDO;
 use PDOStatement;
@@ -83,14 +85,14 @@ class testconnexionController extends TestCase
         // then the view is change with the  header("Location: /?controller=accueil");
         // $this->assertEquals('/?controller=accueil', $_SERVER['REQUEST_URI']);
         // and that the session variables are correctly set
-        self::assertEquals(session_id(), $_SESSION['numeroSession']);
-        self::assertEquals(1, $_SESSION['id']);
-        self::assertEquals('Simon', $_SESSION['nom']);
-        self::assertEquals('douziech', $_SESSION['prenom']);
-        self::assertEquals('Simondouziech', $_SESSION['nom_utilisateur']);
-        self::assertEquals('Simondouziech@example.com', $_SESSION['mail']);
-        self::assertEquals('M', $_SESSION['genre']);
-        self::assertEquals('2003-30-12', $_SESSION['date_naissance']);
+        self::assertEquals(session_id(), httphelper::getParam('numeroSession'));
+        self::assertEquals(1, httphelper::getParam('id'));
+        self::assertEquals('Simon', httphelper::getParam('nom'));
+        self::assertEquals('douziech', httphelper::getParam('prenom'));
+        self::assertEquals('Simondouziech', httphelper::getParam('nom_utilisateur'));
+        self::assertEquals('Simondouziech@example.com', httphelper::getParam('mail'));
+        self::assertEquals('M', httphelper::getParam('genre'));
+        self::assertEquals('2003-30-12', httphelper::getParam('date_naissance'));
     }
 
     public function testconnexionInvalide()
@@ -114,10 +116,9 @@ class testconnexionController extends TestCase
         $this->connexioncontroller->connexionservice = $connexionserviceMock;
 
         // when the method connexion is call with the right identifiant and mot de passe
-        $view = $this->connexioncontroller->connexion($pdo, [
-        'identifiant' => $identifiant,
-        'motDePasse' => $motDePasse
-        ]);
+        $_GET['identifiant'] = 'identifiant';
+        $_GET['motDePasse'] = 'motDePasse';
+        $view = $this->connexioncontroller->connexion($this->pdo);
 
         // then the view don't change and we have only the $_GET['err'] that change
         $this->assertEquals('identifiantmdp', $_GET['err']);

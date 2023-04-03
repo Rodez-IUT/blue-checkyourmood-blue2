@@ -1,4 +1,5 @@
 <?php
+require_once("controllers/indexcontroller.php");
 use yasmf\config;
 use PHPUnit\Framework\TestCase;
 use controllers\indexController;
