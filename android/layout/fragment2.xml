@@ -1,0 +1,34 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Spinner pour afficher les émotions disponibles -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/emotions_label" />
+    <Spinner
+        android:id="@+id/emotions_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- Champ de saisie de texte pour permettre à l'utilisateur de saisir une description de l'émotion -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/description_label" />
+    <EditText
+        android:id="@+id/emotion_description_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/description_hint" />
+
+    <!-- Bouton pour permettre à l'utilisateur d'enregistrer l'émotion -->
+    <Button
+        android:id="@+id/saisir_emotion_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/saisir_emotion_button_text" />
+
+</LinearLayout>
