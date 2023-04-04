@@ -36,3 +36,8 @@ Simon Douziech : Scrum Master, Développeur<br>
 # Livrables Check Your Mood V2
 ## Lien vers l'Audit Qualité de Check Your Mood V1
 [Audit Qualité](https://docs.google.com/document/d/1w2pW7UrZZmM8HcnjnLnRqdFvaj2UFiqwPgNOt-iAEOQ/edit?usp=sharing)
+
+## Le lien vers le board Zenhub
+
+## Lien vers le dossier Google Drive
+
