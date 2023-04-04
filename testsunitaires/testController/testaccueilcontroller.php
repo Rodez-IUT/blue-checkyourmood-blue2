@@ -3,7 +3,7 @@
 require_once("controllers/accueilcontroller.php");
 use yasmf\config;
 use PHPUnit\Framework\TestCase;
-use controllers\accueilcontroller;
+use controllers\accueilController;
 
 class testaccueilController extends TestCase
 {
