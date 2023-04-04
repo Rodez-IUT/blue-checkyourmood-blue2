@@ -3,7 +3,7 @@ require_once('model/connexionservice.php');
 require_once("controllers/connexioncontroller.php");
 use yasmf\config;
 use PHPUnit\Framework\TestCase;
-use controllers\connexioncontroller;
+use controllers\connexionController;
 use model\connexionservice;
 use yasmf\httphelper;
 

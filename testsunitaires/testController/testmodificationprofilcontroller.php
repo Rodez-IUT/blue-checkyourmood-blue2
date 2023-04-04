@@ -2,7 +2,7 @@
 require_once("controllers/modificationprofilcontroller.php");
 use yasmf\config;
 use PHPUnit\Framework\TestCase;
-use controllers\modificationprofilcontroller;
+use controllers\ModificationProfilController;
 use model\emotionsservice;
 use model\humeurservice;
 use yasmf\httphelper;
