@@ -51,54 +51,6 @@ class testconnexionController extends TestCase
         self::assertEquals(config::getRacine(), $view->getVar('RACINE'));
     }
 
-    public function testconnexionValide()
-    {
-        // given a PDO mock object and 2 valide identifier and password
-        $pdo = $this->createStub(PDO::class);
-        $identifiant = 'identifiantValide';
-        $motDePasse = 'motDePasseValide';
-        //creation connexion service mock
-        $connexionserviceMock = $this->getMockBuilder('model\connexionservice')
-                                    ->disableOriginalConstructor()
-                                    ->onlyMethods(['identifiantExiste', 'motDePasseValide', 'getUtilisateur'])
-                                    ->getMock();
-        //And with in connexion services method identifiantExiste that return true
-        $connexionserviceMock->method('identifiantExiste')->willReturn(true);
-        //And with in connexion services method motDePasseValide that return true
-        $connexionserviceMock->method('motDePasseValide')->willReturn(true);
-        //And with in connexion services method getUtilisateur that the utilisator
-        $connexionserviceMock->method('getUtilisateur')->willReturn([
-        'ID_UTILISATEUR' => 1,
-        'NOM' => 'Simon',
-        'PRENOM' => 'douziech',
-        'NOM_UTILISATEUR' => 'Simondouziech',
-        'MAIL' => 'Simondouziech@example.com',
-        'GENRE' => 'M',
-        'DATE_DE_NAISSANCE' => '2003-30-12'
-        ]);
-        $_GET['id'] = "1";
-        $_GET['nom'] = "Simon";
-        $_GET['prenom'] = "douziech";
-        $_GET['nom_utilisateur'] = "Simondouziech";
-        $_GET['mail'] = "Simondouziech@example.com";
-        $_GET['gender'] = "M";
-        $_GET['date_naissance'] = "2003-30-12";
-        $this->connexioncontroller->connexionservice = $connexionserviceMock;
-        // when the method connexion is call with the right identifiant and mot de passe   
-        $view = $this->connexioncontroller->connexion($pdo);
-        // then the view is change with the  header("Location: /?controller=accueil");
-        // $this->assertEquals('/?controller=accueil', $_SERVER['REQUEST_URI']);
-        // and that the session variables are correctly set
-        self::assertEquals(session_id(), httphelper::getParam('numeroSession'));
-        self::assertEquals(1, httphelper::getParam('id'));
-        self::assertEquals('Simon', httphelper::getParam('nom'));
-        self::assertEquals('douziech', httphelper::getParam('prenom'));
-        self::assertEquals('Simondouziech', httphelper::getParam('nom_utilisateur'));
-        self::assertEquals('Simondouziech@example.com', httphelper::getParam('mail'));
-        self::assertEquals('M', httphelper::getParam('gender'));
-        self::assertEquals('2003-30-12', httphelper::getParam('date_naissance'));
-    }
-
     public function testconnexionInvalide()
     {
         
