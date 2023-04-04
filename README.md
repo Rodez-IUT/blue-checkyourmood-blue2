@@ -40,4 +40,4 @@ Simon Douziech : Scrum Master, Développeur<br>
 ## Le lien vers le board Zenhub
 
 ## Lien vers le dossier Google Drive
-
+https://drive.google.com/drive/folders/1q5yMpkKjEIOlCSITADx8Gi_RKNBjVFPn?usp=share_link
