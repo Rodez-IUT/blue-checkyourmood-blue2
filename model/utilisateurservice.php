@@ -48,14 +48,11 @@ class utilisateurservice
     public static function suppUtilisateur($pdo, $codeUtilisateur)
     {
         $sql = "DELETE FROM `utilisateur` WHERE ID_UTILISATEUR = ?";
-        $pdo->beginTransaction();
         try {
             $stmt = $pdo->prepare($sql);
             $stmt->execute([$codeUtilisateur]);
-            $pdo->commit();
 
         } catch (Exception $e) {
-            $pdo->rollBack();
             $e -> getMessage();
         }
     }

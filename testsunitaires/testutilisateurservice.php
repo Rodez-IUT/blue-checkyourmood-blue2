@@ -21,8 +21,10 @@ class testutilisateurservice extends TestCase {
 
     public function testSuppUtilisateur() {
         $pdo = $this->getPDO();
+        $pdo->beginTransaction();
         $this->assertNull(utilisateurservice::suppUtilisateur($pdo, 72));
         $this->assertNotTrue(utilisateurservice::suppUtilisateur($pdo, 1));
+        $pdo->rollBack();
     }
 
     public function testModifUtilisateur() {
