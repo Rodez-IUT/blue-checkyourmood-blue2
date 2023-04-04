@@ -25,14 +25,14 @@ class testindexController extends TestCase
         $this->pdo->method('prepare')->willReturn($this->pdoStatement);
     }
 
-    public function testIndex()
+    public function testIndex(): void
     {
         // when call to index with mocked PDO connection
         $view = $this->indexController->index($this->pdo);
         // then the view point to the expected view file
         self::assertEquals("views/index", $view->getRelativePath());
     }
-    public function testIndexWithRacine()
+    public function testIndexWithRacine(): void
     {
         // given a PDO mock object
         $pdo = $this->createStub(PDO::class);
