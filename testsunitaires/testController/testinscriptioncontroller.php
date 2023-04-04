@@ -1,7 +1,9 @@
 <?php
-require_once( 'model/verificationservice.php');
+require_once('controllers\inscriptioncontroller.php');
+
 use PHPUnit\Framework\TestCase;
 use controllers\inscriptionController;
+use model\utilisateurservice;
 
 
 class testinscriptionController extends TestCase
@@ -25,110 +27,178 @@ class testinscriptionController extends TestCase
         $this->pdo->method('prepare')->willReturn($this->pdoStatement);
     }
 
-    public function testinscriptionValide()
+    public function testindex(): void 
+    {
+        //GIVEN toute les variable d'inscription Bonne
+        $_GET['newNom'] = 'bribach';
+        $_GET['newPrenom'] = 'ahmed';
+        $_GET['newMail'] = 'briahmed@gmail.com';
+        $_GET['newNomUtilisateur'] = 'ahmed2.0';
+        $_GET['newGenre'] = 'Homme';
+        $_GET['newDateNaissance'] = '10/03/2002';
+        $_GET['newMotDePasse1'] = 'oui';
+        $_GET['newMotDePasse2'] =  'oui';
+
+        $_GET['nomOK'] = true;
+        $_GET['prenomOK'] = true;
+        $_GET['mailOK'] = true;
+        $_GET['nomUtilisateurOK'] = true;
+        $_GET['genreOK'] = true;
+        $_GET['dateNaissanceOK'] = true;
+        $_GET['motDePasse1OK'] = true;
+        $_GET['motDePasse2OK'] = true;
+        $_GET['dateNaissanceOK'] = true;
+        $_GET['creation'] = true;
+        $_GET['identifiantDejaUtilise'] = false;
+        $_GET['affichage'] = true;
+
+        //WHEN on lance inscriptioncontroller
+        $view = $this->inscriptionController->index($this->pdo);
+
+        //THEN tout les varible doivent êtres assignée
+        self::assertEquals("bribach", $view->getVar('nom'));
+        self::assertEquals("ahmed", $view->getVar('prenom'));
+        self::assertEquals("briahmed@gmail.com", $view->getVar('mail'));
+        self::assertEquals("ahmed2.0", $view->getVar('nomUtilisateur'));
+        self::assertEquals("Homme", $view->getVar('genre'));
+        self::assertEquals("10/03/2002", $view->getVar('dateNaissance'));
+        self::assertEquals("oui", $view->getVar('motDePasse1'));
+        self::assertEquals("oui", $view->getVar('motDePasse2'));
+        self::assertTrue($view->getVar('nomOK'));
+        self::assertTrue($view->getVar('prenomOK'));
+        self::assertTrue($view->getVar('mailOK'));
+        self::assertTrue($view->getVar('nomUtilisateurOK'));
+        self::assertTrue($view->getVar('genreOK'));
+        self::assertTrue($view->getVar('dateNaissanceOK'));
+        self::assertTrue($view->getVar('motDePasse1OK'));
+        self::assertTrue($view->getVar('motDePasse2OK'));
+        self::assertTrue($view->getVar('creation'));
+        self::assertFalse($view->getVar('identifiantDejaUtilise'));
+        self::assertTrue($view->getVar('affichage'));
+
+
+        //GIVEN toute les variable bonne et mauvaise
+        $_GET['newNom'] = 'bribach';
+        $_GET['newPrenom'] = '';
+        $_GET['newMail'] = 'briahmed';
+        $_GET['newNomUtilisateur'] = 'ahmed2.0';
+        $_GET['newGenre'] = 'Homme';
+        $_GET['newDateNaissance'] = '10/03/2002';
+        $_GET['newMotDePasse1'] = 'oui';
+        $_GET['newMotDePasse2'] =  'oui';
+
+        $_GET['nomOK'] = true;
+        $_GET['prenomOK'] = false;
+        $_GET['mailOK'] = false;
+        $_GET['nomUtilisateurOK'] = true;
+        $_GET['genreOK'] = true;
+        $_GET['dateNaissanceOK'] = true;
+        $_GET['motDePasse1OK'] = true;
+        $_GET['motDePasse2OK'] = true;
+        $_GET['dateNaissanceOK'] = true;
+        $_GET['creation'] = true;
+        $_GET['identifiantDejaUtilise'] = false;
+        $_GET['affichage'] = true;
+
+        //WHEN on lance inscriptioncontroller
+        $view = $this->inscriptionController->index($this->pdo);
+
+        //THEN tout les varible doivent êtres assignée
+        self::assertEquals("bribach", $view->getVar('nom'));
+        self::assertEquals("", $view->getVar('prenom'));
+        self::assertEquals("briahmed", $view->getVar('mail'));
+        self::assertEquals("ahmed2.0", $view->getVar('nomUtilisateur'));
+        self::assertEquals("Homme", $view->getVar('genre'));
+        self::assertEquals("10/03/2002", $view->getVar('dateNaissance'));
+        self::assertEquals("oui", $view->getVar('motDePasse1'));
+        self::assertEquals("oui", $view->getVar('motDePasse2'));
+        self::assertTrue($view->getVar('nomOK'));
+        self::assertFalse($view->getVar('prenomOK'));
+        self::assertFalse($view->getVar('mailOK'));
+        self::assertTrue($view->getVar('nomUtilisateurOK'));
+        self::assertTrue($view->getVar('genreOK'));
+        self::assertTrue($view->getVar('dateNaissanceOK'));
+        self::assertTrue($view->getVar('motDePasse1OK'));
+        self::assertTrue($view->getVar('motDePasse2OK'));
+        self::assertTrue($view->getVar('creation'));
+        self::assertFalse($view->getVar('identifiantDejaUtilise'));
+        self::assertTrue($view->getVar('affichage'));
+                
+    }
+
+    public function testinscriptionValide(): void
     {
         // given a PDO mock object and all valide parameter
-        $pdo = $this->createStub(PDO::class);
-        $nom = 'newNomValide';
-        $prenom = 'newPrenomValide';
-        $mail = 'newMailValide';
-        $nomUtilisateur ='newNomUtilisateurValide';
-        $genre = 'newGenreValide';
-        $dateNaissance = 'newDateNaissanceValide';
-        $motDePasse1 = 'newMotDePasse1Valide';
-        $motDePasse2 = 'newMotDePasse2Valide';
 
-        //And with in verification services method e
-        $verificationserviceMock = $this->getMockBuilder('verificationservice')
-                                    ->disableOriginalConstructor()
-                                    ->onlyMethods(['testNom','testPrenom','testMail','testNomUtilisateur','testGenre','testDateNaissance','testMotDePasse','testMdpCorrespond'])
-                                    ->getMock();
-        //And with in verification services method of test it will return true
-        $verificationserviceMock->method('testNom')->willReturn(true);
-        $verificationserviceMock->method('testPrenom')->willReturn(true);
-        $verificationserviceMock->method('testMail')->willReturn(true);
-        $verificationserviceMock->method('testNomUtilisateur')->willReturn(true);
-        $verificationserviceMock->method('testGenre')->willReturn(true);
-        $verificationserviceMock->method('testDateNaissance')->willReturn(true);
-        $verificationserviceMock->method('testMotDePasse')->willReturn(true);
-        $verificationserviceMock->method('testMdpCorrespond')->willReturn(true);
-        
-        $this->inscriptionController->verificationservice = $verificationserviceMock;
+        foreach($_GET as $key => $value) {
+            unset($_GET[$key]);
+        }
 
-        //with 
-        $_POST['newNom'] = $nom;
-        $_POST['newPrenom'] = $prenom;
-        $_POST['newMail'] = $mail;
-        $_POST['newNomUtilisateur'] = $nomUtilisateur;
-        $_POST['newGenre'] = $genre;
-        $_POST['newDateNaissance'] = $dateNaissance;
-        $_POST['newMotDePasse1'] = $motDePasse1;
-        $_POST['newMotDePasse2'] = $motDePasse2;
-        $_POST['affichage'] = 1;
-        $_SERVER['REQUEST_METHOD'] = 'POST';
-    
+        $_GET['affichage'] = true;
+        $_GET['newNom'] = 'bribach';
+        $_GET['newPrenom'] = 'ahmed';
+        $_GET['newMail'] = 'briahmed@gmail.com';
+        $_GET['newNomUtilisateur'] = 'ahmed2.0';
+        $_GET['newGenre'] = 'Homme';
+        $_GET['newDateNaissance'] = '10/03/2002';
+        $_GET['newMotDePasse1'] = 'oui';
+        $_GET['newMotDePasse2'] =  'oui';
+
+
+        $utilisateurserviceMock = $this->getMockBuilder('model\utilisateurservice')
+                                        ->disableOriginalConstructor()
+                                        ->onlyMethods(['ajouterUtilisateur'])
+                                        ->getMock();
+        $utilisateurserviceMock->method('ajouterUtilisateur')->willReturn(null);
+        $this->inscriptionController->utilisateurservice = $utilisateurserviceMock;
+
         // when call to inscription method
-        $view = $this->inscriptionController->creation($pdo);
+        $view = $this->inscriptionController->creation($this->pdo);
     
         // then the utilisator as sign in
+        self::assertTrue($view->getVar('nomOK'));
+        self::assertTrue($view->getVar('prenomOK'));
+        self::assertTrue($view->getVar('mailOK'));
+        self::assertTrue($view->getVar('nomUtilisateurOK'));
+        self::assertTrue($view->getVar('genreOK'));
+        self::assertTrue($view->getVar('dateNaissanceOK'));
+        self::assertTrue($view->getVar('motDePasse1OK'));
+        self::assertTrue($view->getVar('motDePasse2OK'));
         self::assertEquals("views/vue_inscription", $view->getRelativePath());
 
     }
 
-    public function testinscriptionInvalide()
+    public function testinscriptionInvalide(): void
     {
         // given a PDO mock object and all invalide parameter
-        $pdo = $this->createStub(PDO::class);
-        $nom = '';
-        $prenom = '';
-        $mail = '';
-        $nomUtilisateur ='';
-        $genre = '';
-        $dateNaissance = '';
-        $motDePasse1 = '';
-        $motDePasse2 = '';
 
-        //And with in verification services method 
-        $verificationserviceMock = $this->getMockBuilder('verificationservice')
-                                    ->disableOriginalConstructor()
-                                    ->onlyMethods(['testNom','testPrenom','testMail','testNomUtilisateur','testGenre','testDateNaissance','testMotDePasse','testMdpCorrespond'])
-                                    ->getMock();
-        //And with in verification services method of test it will return false
-        $verificationserviceMock->method('testNom')->willReturn(false);
-        $verificationserviceMock->method('testPrenom')->willReturn(false);
-        $verificationserviceMock->method('testMail')->willReturn(false);
-        $verificationserviceMock->method('testNomUtilisateur')->willReturn(false);
-        $verificationserviceMock->method('testGenre')->willReturn(false);
-        $verificationserviceMock->method('testDateNaissance')->willReturn(false);
-        $verificationserviceMock->method('testMotDePasse')->willReturn(false);
-        $verificationserviceMock->method('testMdpCorrespond')->willReturn(false);
+        foreach($_GET as $key => $value) {
+            unset($_GET[$key]);
+        }
 
-        $this->inscriptionController->verificationservice = $verificationserviceMock;
+        $_GET['affichage'] = true;
+        $_GET['newNom'] = '';
+        $_GET['newPrenom'] = 'ahmedttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt';
+        $_GET['newMail'] = '';
+        $_GET['newNomUtilisateur'] = '';
+        $_GET['newGenre'] = 'Homme';
+        $_GET['newDateNaissance'] = '10/03/2002';
+        $_GET['newMotDePasse1'] = 'oui';
+        $_GET['newMotDePasse2'] =  'oui';
 
-        //with 
-        $_POST['newNom'] = $nom;
-        $_POST['newPrenom'] = $prenom;
-        $_POST['newMail'] = $mail;
-        $_POST['newNomUtilisateur'] = $nomUtilisateur;
-        $_POST['newGenre'] = $genre;
-        $_POST['newDateNaissance'] = $dateNaissance;
-        $_POST['newMotDePasse1'] = $motDePasse1;
-        $_POST['newMotDePasse2'] = $motDePasse2;
-        $_POST['affichage'] = 1;
-        $_SERVER['REQUEST_METHOD'] = 'POST';
-    
         // when call to inscription method
-        $view = $this->inscriptionController->creation($pdo);
+        $view = $this->inscriptionController->creation($this->pdo);
     
-        // then all the variable are false
-        $this->assertFalse($view->getVar('nomOK'));
-        $this->assertFalse($view->getVar('prenomOK'));
-        $this->assertFalse($view->getVar('mailOK'));
-        $this->assertFalse($view->getVar('nomUtilisateurOK'));
-        $this->assertFalse($view->getVar('genreOK'));
-        $this->assertFalse($view->getVar('dateNaissanceOK'));
-        $this->assertFalse($view->getVar('motDePasse1OK'));
-        $this->assertFalse($view->getVar('motDePasse2OK'));
+        // then the utilisator as sign in
+        self::assertFalse($view->getVar('nomOK'));
+        self::assertFalse($view->getVar('prenomOK'));
+        self::assertFalse($view->getVar('mailOK'));
+        self::assertFalse($view->getVar('nomUtilisateurOK'));
+        self::assertTrue($view->getVar('genreOK'));
+        self::assertTrue($view->getVar('dateNaissanceOK'));
+        self::assertTrue($view->getVar('motDePasse1OK'));
+        self::assertTrue($view->getVar('motDePasse2OK'));
+        self::assertEquals("views/vue_inscription", $view->getRelativePath());
 
     }
    
