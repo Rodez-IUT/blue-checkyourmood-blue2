@@ -1,5 +1,5 @@
 # CheckYourMood
-
+## Développement d'une application complexe
 ## Description du projet
 Le projet a pour but de réaliser une application Android étant la V2 de CheckYourMood Web. L'application Android CYMdroid sera stockée sur une Machine virtuel, sur une 
 autre Machine virtuel on retrouvera une API stocker sur Lamp qui sera utilisé par l'application Android afin de réaliser 2 pages sur l'application, il s'agit de là 
