@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="3dp"
+    android:orientation="vertical">
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".VisualisationHumeur"
+        android:layout_gravity="center_vertical">
+
+        <TableRow>
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:textSize="@dimen/title"
+                android:text="@string/Historique"
+                android:textColor="@color/redPasRed">
+            </TextView>
+        </TableRow>
+
+        <TableRow>
+
+            <ListView
+                android:id="@+id/list_view1"
+                android:layout_width="0dp"
+                android:layout_weight="1"/>
+            <ListView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:id="@+id/list_view2" />
+            <ListView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:id="@+id/list_view3"/>
+        </TableRow>
+
+
+    </TableLayout>
+</LinearLayout>

@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">CheckYourMood</string>
+    <string name="accueil_connexion">Bienvenue, connectez-vous !</string>
+    <string name="Authenti">AUTHENTIFICATION</string>
+    <string name="identifiant">Identifiant</string>
+    <string name="placeholder_identifiant">Saisissez votre identifiant</string>
+    <string name="Mot_de_passe">Mot de passe</string>
+    <string name="placeholder_Mot_de_passe">Saisissez votre Mot de passe</string>
+    <string name="connexion">connexion</string>
+    <string name="message_erreur_connexion">Erreur de connexion, vérifier votre réseau</string>
+    <string name="message_erreur">Erreur 404</string>
+    <string name="Mexprimer">M\'exprimer</string>
+    <string name="voirHumeur">Voir Mes Humeur</string>
+    <string name="Historique">Historique</string>
+    <string name="date">date et heure</string>
+    <string name="emotion">emotion</string>
+    <string name="Description">description</string>
+    <string name="selecHumeur">sélectionnez une humeur</string>
+    <string name="emotions_label">Sélectionnez une émotion :</string>
+    <string name="description_label">Description :</string>
+    <string name="description_hint">Entrez une description de votre émotion...</string>
+    <string name="saisir_emotion_button_text">Saisir l\'émotion</string>
+    <string name="visualisation">Voir mes Humeur</string>
+    <string name="rafraichir">rafraichir</string>
+</resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="red">#FF0000</color>
+    <color name="redSite">#FF7676</color>
+    <color name="redPasRed">#FF0000</color>
+    <color name ="aqua">#20f5e8</color>
+    <!--    <color name ="blue">##0000FF</color>-->
+    <color name="couleur_principale">#40A497</color>
+
+    <!-- couleur des textes -->
+    <color name="couleur_texte">#47A296</color>
+
+    <!-- couleur de fond des boutons -->
+    <color name="couleur_bouton">#61C8BA</color>
+
+    <!-- couleurs pour les onglets -->
+    <color name="fond_onglet">#ebedef</color>
+    <color name="texte_onglet">#16a085</color>
+    <color name="texte_onglet_selectionne">#0e6655</color>
+</resources>

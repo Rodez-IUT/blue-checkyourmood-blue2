@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Styles de l'application qui Outils sur Date -->
+<resources>
+
+
+    <!-- Style de la barre de séparation -->
+    <style name="BarreSeparation" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/hauteur_barre</item>
+        <item name="android:layout_marginTop">@dimen/marge_verticale</item>
+        <item name="android:background">@color/couleur_principale</item>
+    </style>
+
+    <!-- Style des textes -->
+    <style name="StyleTexte" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/marge_verticale</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textColor">@color/couleur_texte</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Style des boutons -->
+    <style name="StyleBouton" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">@color/couleur_bouton</item>
+    </style>
+
+    <!-- Style des DatePicker -->
+    <style name="StyleDatePicker" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:calendarViewShown">false</item>
+        <item name="android:datePickerMode">spinner</item>
+    </style>
+
+    <!-- Style des "petits" DatePicker (pour l'onglet qui affiche 2 DatePicker -->
+    <style name="StylePetitDatePicker" parent="StyleDatePicker">
+        <item name="android:scaleY">0.7</item>
+        <item name="android:scaleX">0.7</item>
+        <item name="android:layout_marginTop">@dimen/marge_negative</item>
+        <item name="android:layout_marginBottom">@dimen/marge_negative</item>
+    </style>
+
+</resources>
