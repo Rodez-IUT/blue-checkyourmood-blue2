@@ -38,6 +38,7 @@ Simon Douziech : Scrum Master, Développeur<br>
 [Audit Qualité](https://docs.google.com/document/d/1w2pW7UrZZmM8HcnjnLnRqdFvaj2UFiqwPgNOt-iAEOQ/edit?usp=sharing)
 
 ## Le lien vers le board Zenhub
+https://github.com/Rodez-IUT/blue-checkyourmood-blue2#zenhub
 
 ## Lien vers le dossier Google Drive
 https://drive.google.com/drive/folders/1q5yMpkKjEIOlCSITADx8Gi_RKNBjVFPn?usp=share_link
