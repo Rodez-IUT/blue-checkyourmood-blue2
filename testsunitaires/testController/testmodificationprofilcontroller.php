@@ -1,18 +1,18 @@
 <?php
-require_once("controllers/modificationprofilcontroller.php");
-use yasmf\config;
+require_once('model/connexionservice.php');
+require_once('model/utilisateurservice.php');
 use PHPUnit\Framework\TestCase;
-use controllers\ModificationProfilController;
-use model\emotionsservice;
-use model\humeurservice;
-use yasmf\httphelper;
+use controllers\modificationMotDePasseController;
+use yasmf\config;
+use model\connexionservice;
+use model\utilisateurservice;
 
-use PDO;
-use PDOStatement;
-
-class testmodificationprofilcontroller extends TestCase
+class testmodificationmotdepassecontroller extends TestCase
 {
-    private modificationprofilcontroller $modificationprofilcontroller;
+
+    private modificationmotdepassecontroller $modificationmotdepassecontroller;
+    private connexionservice $connexionservice;
+    private utilisateurservice $utilisateurservice;
     private PDO $pdo;
     private PDOStatement $pdoStatement;
 
@@ -20,7 +20,7 @@ class testmodificationprofilcontroller extends TestCase
     {
         parent::setUp();
         // given a index controller
-        $this->modificationprofilcontroller = new modificationprofilcontroller();
+        $this->modificationmotdepassecontroller = new modificationmotdepassecontroller();
         // create stubs for PDO and PDOStatement
         $this->pdo = $this->createStub(PDO::class);
         $this->pdoStatement = $this->createStub(PDOStatement::class);
@@ -30,89 +30,30 @@ class testmodificationprofilcontroller extends TestCase
         $this->pdo->method('prepare')->willReturn($this->pdoStatement);
     }
 
-    public function testindex() {
-
-        //GIVEN toute les variable d'inscription Bonne
-        $_GET['newNom'] = 'Bois';
-        $_GET['newPrenom'] = 'Axel';
-        $_GET['newMail'] = 'axel.bois@mail.fr';
-        $_GET['newNomUtilisateur'] = "Axel";
-        $_GET['newGenre'] = "Homme";
-        $_GET['newDateNaissance'] = "2003-12-09";
-        $_GET['newMotDePasse1'] = "test";
-        $_GET['newMotDePasse2'] = "test";
-
-        $_GET['nomOK'] = true;
-        $_GET['prenomOK'] = true;
-        $_GET['mailOK'] = true;
-        $_GET['nomUtilisateurOK'] = true;
-        $_GET['genreOK'] = true;
-        $_GET['dateNaissanceOK'] = true;
-        $_GET['motDePasse1OK'] = true;
-        $_GET['motDePasse2OK'] = true;
-        $_GET['dateNaissanceOK'] = true;
-        $_GET['creation'] = true;
-        $_GET['identifiantDejaUtilise'] = false;
-        $_GET['affichage'] = true;
-
-        //WHEN on lance modificationprofilcontroller
-        $view = $this->modificationprofilcontroller->index($this->pdo);
-
-        //THEN tout les varible doivent êtres assignée
-        self::assertEquals("Bois", $view->getVar('nom'));
-        self::assertEquals("Axel", $view->getVar('prenom'));
-        self::assertEquals("axel.bois@mail.fr", $view->getVar('mail'));
-        self::assertEquals("Axel", $view->getVar('nomUtilisateur'));
-        self::assertEquals("Homme", $view->getVar('genre'));
-        self::assertEquals("2003-12-09", $view->getVar('dateNaissance'));
-        self::assertEquals("test", $view->getVar('motDePasse1'));
-        self::assertEquals("test", $view->getVar('motDePasse2'));
-        self::assertTrue($view->getVar('nomOK'));
-        self::assertTrue($view->getVar('prenomOK'));
-        self::assertTrue($view->getVar('mailOK'));
-        self::assertTrue($view->getVar('nomUtilisateurOK'));
-        self::assertTrue($view->getVar('genreOK'));
-        self::assertTrue($view->getVar('dateNaissanceOK'));
-        self::assertTrue($view->getVar('motDePasse1OK'));
-        self::assertTrue($view->getVar('motDePasse2OK'));
-        self::assertTrue($view->getVar('creation'));
-        self::assertFalse($view->getVar('identifiantDejaUtilise'));
-        self::assertTrue($view->getVar('affichage'));
+    public function testIndex()
+    {
+        $this->modificationmotdepassecontroller = new modificationmotdepassecontroller();
+        // when call to index with mocked PDO connection
+        $view = $this->modificationmotdepassecontroller->index($this->pdo);
+        // then the view point to the expected view file
+        self::assertEquals("views/vue_modificationmotdepasse", $view->getRelativePath());
     }
-
-    public function testModifProfil() {
-
-        //given des parametre complet pour la modificatio d'un profile
-        $_GET['newNom'] = 'Bois';
-        $_GET['newPrenom'] = 'Axel';
-        $_GET['newMail'] = 'axel.bois@mail.fr';
-        $_GET['newNomUtilisateur'] = "Axel";
-        $_GET['newGenre'] = "Homme";
-        $_GET['newDateNaissance'] = "2003-12-09";
-        $_GET['idUtilisateur'] = 70;
-
-        $connexionserviceMock = $this->getMockBuilder('model\connexionservice')
-                                        ->disableOriginalConstructor()
-                                        ->onlyMethods(['getUtilisateurById'])
-                                        ->getMock();
-        $connexionserviceMock->method('getUtilisateurById')->willReturn([
-        'NOM' => 'Bois',
-        'PRENOM' => 'Axel',
-        'NOM_UTILISATEUR' => 'Axel',
-        'MAIL' => 'axel.bois@mail.fr',
-        'GENRE' => 'Homme',
-        'DATE_DE_NAISSANCE' => '2003-12-09'
-        ]);
-        //when la méthode de modifiaction est appeler
-        $view = $this->modificationprofilcontroller->modifierProfil($this->pdo);
-        //then le profil est modifier avec les nouvelles données
+    public function testMotdePasseValide()
+    {        
         
-        self::assertEquals("Bois", $view->getVar('nom'));
-        self::assertEquals("Axel", $view->getVar('prenom'));
-        self::assertEquals("axel.bois@mail.fr", $view->getVar('mail'));
-        self::assertEquals("Axel", $view->getVar('nomUtilisateur'));
-        self::assertEquals("Homme", $view->getVar('genre'));
-        self::assertEquals("2003-12-09", $view->getVar('dateNaissance'));
+        $_SESSION['nom_utilisateur'] = 'simon';
+        $_GET['motDePasseActuel'] = '1234';
+        $_GET['nouveauMotDePasse'] = '12345';
+        $_GET['confirmerMdp'] = '12345';
+        $_GET['idUtilisateur'] = '3';
+        //$this->utilisateurservice = $this->createStub(utilisateurservice::class);
+        
+        //$this->modificationmotdepassecontroller = new modificationmotdepassecontroller($this->utilisateurservice);
+        // when call to modificationmotdepasse with mocked PDO connection
+        $view = $this->modificationmotdepassecontroller->modifierMotDePasse($this->pdo);
+
+        // then the view point to the expected view file
+        self::assertEquals("vide", $view->getVar('err'));
+        self::assertEquals("views/vue_modificationmotdepasse", $view->getRelativePath());
     }
 }
-?>
