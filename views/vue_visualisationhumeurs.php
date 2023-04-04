@@ -55,30 +55,7 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
             </div>
             <div class="col-3"></div>
         </div>
-        <script>
-            new Chart(document.getElementById("camembertChart"), {
-                type: 'pie',
-                data: {
-                labels: ["Admiration", "Adoration", "Appréciation esthétique", "Amusement", "Colère", "Anxiété", 
-                "Émerveillement", "Malaise", "Ennui", "Calme", "Confusion", "Envie", "Dégoût", "Douleur empathique", 
-                "étonné", "Excitation", "Peur", "Horreur", "Intérêt", "Joie", "Nostalgie", "Soulagement", 
-                "Romance", "Tristesse", "Satisfaction", "Désir sexuel", "Surprise", ],
-                datasets: [{
-                    label: "Ajout",
-                    backgroundColor: ["#d7a7ff", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#a48ce4","#b6d7a8","#8cace4",
-                    "#e48c8c","#f7df7c","#2f90a8","#e32b2b","#351431","#eee7cf","#4b5e20","#c9b9ad","#8700ff","#3e95cd","#f2cfb4","	#fc7a08","#000000","#98d400",
-                    "#f50b86","#1d2564","#05f9e2","#e2f705","#ff6f00"],
-                    data: <?php echo $humeursStat ?>
-                }]
-                },
-                options: {
-                title: {
-                    display: true,
-                    text: 'Moyenne de vos humeurs'
-                }
-                }
-            });
-        </script>
+        
         <!-- On affiche le diagramme en baton-->
         <?php 
             } else if ($choixVisualisation == 'baton') {
@@ -90,33 +67,6 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
             </div>
             <div class="col-3"></div>
         </div>
-        <script>
-            new Chart(document.getElementById("barChart"), {
-                type: 'bar',
-                data: {
-                labels: ["Admiration", "Adoration", "Appréciation esthétique", "Amusement", "Colère", "Anxiété", 
-                "Émerveillement", "Malaise", "Ennui", "Calme", "Confusion", "Envie", "Dégoût", "Douleur empathique", 
-                "étonné", "Excitation", "Peur", "Horreur", "Intérêt", "Joie", "Nostalgie", "Soulagement", 
-                "Romance", "Tristesse", "Satisfaction", "Désir sexuel", "Surprise", ],
-                datasets: [
-                    {
-                    label: "Ajout",
-                    backgroundColor: ["#d7a7ff", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#a48ce4","#b6d7a8","#8cace4",
-                    "#e48c8c","#f7df7c","#2f90a8","#e32b2b","#351431","#eee7cf","#4b5e20","#c9b9ad","#8700ff","#3e95cd","#f2cfb4","	#fc7a08","#000000","#98d400",
-                    "#f50b86","#1d2564","#05f9e2","#e2f705","#ff6f00"],
-                    data: <?php echo $humeursStat ?>
-                    }
-                ]
-                },
-                options: {
-                legend: { display: false },
-                title: {
-                    display: true,
-                    text: 'Visualisation des humeurs'
-                }
-                }
-            });
-        </script>
         <!-- On affiche le diagramme en ligne-->
         <?php
             } else if ($choixVisualisation == 'graphique') {
@@ -166,7 +116,65 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                 </div>
                 <div class="col-9"></div>
             </div>
-            <script>
+        <?php
+            }
+        ?>
+    </div>
+    <script> 
+        <?php 
+            if ($choixVisualisation == 'camembert') {   
+        ?>    
+            new Chart(document.getElementById("camembertChart"), {
+                type: 'pie',
+                data: {
+                labels: ["Admiration", "Adoration", "Appréciation esthétique", "Amusement", "Colère", "Anxiété", 
+                "Émerveillement", "Malaise", "Ennui", "Calme", "Confusion", "Envie", "Dégoût", "Douleur empathique", 
+                "étonné", "Excitation", "Peur", "Horreur", "Intérêt", "Joie", "Nostalgie", "Soulagement", 
+                "Romance", "Tristesse", "Satisfaction", "Désir sexuel", "Surprise", ],
+                datasets: [{
+                    label: "Ajout",
+                    backgroundColor: ["#d7a7ff", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#a48ce4","#b6d7a8","#8cace4",
+                    "#e48c8c","#f7df7c","#2f90a8","#e32b2b","#351431","#eee7cf","#4b5e20","#c9b9ad","#8700ff","#3e95cd","#f2cfb4","	#fc7a08","#000000","#98d400",
+                    "#f50b86","#1d2564","#05f9e2","#e2f705","#ff6f00"],
+                    data: <?php echo $humeursStat ?>
+                }]
+                },
+                options: {
+                title: {
+                    display: true,
+                    text: 'Moyenne de vos humeurs'
+                }
+                }
+            });
+            <?php
+            } else if ($choixVisualisation == 'baton') {
+            ?> 
+            new Chart(document.getElementById("barChart"), {
+                type: 'bar',
+                data: {
+                labels: ["Admiration", "Adoration", "Appréciation esthétique", "Amusement", "Colère", "Anxiété", 
+                "Émerveillement", "Malaise", "Ennui", "Calme", "Confusion", "Envie", "Dégoût", "Douleur empathique", 
+                "étonné", "Excitation", "Peur", "Horreur", "Intérêt", "Joie", "Nostalgie", "Soulagement", 
+                "Romance", "Tristesse", "Satisfaction", "Désir sexuel", "Surprise", ],
+                datasets: [
+                    {
+                    label: "Ajout",
+                    backgroundColor: ["#d7a7ff", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#a48ce4","#b6d7a8","#8cace4",
+                    "#e48c8c","#f7df7c","#2f90a8","#e32b2b","#351431","#eee7cf","#4b5e20","#c9b9ad","#8700ff","#3e95cd","#f2cfb4","	#fc7a08","#000000","#98d400",
+                    "#f50b86","#1d2564","#05f9e2","#e2f705","#ff6f00"],
+                    data: <?php echo $humeursStat ?>
+                    }
+                ]
+                },
+                options: {
+                legend: { display: false },
+                title: {
+                    display: true,
+                    text: 'Visualisation des humeurs'
+                }
+                }
+            });
+            <?php } else if ($choixVisualisation == 'graphique') {?>
                 new Chart(document.getElementById("lineChart"), {
                     type: 'line',
                     data: {
@@ -315,10 +323,7 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                         }
                     }
                     });
-            </script>
-        <?php
-            }
-        ?>
-    </div>
+            <?php }?>
+    </script>
 </body>
 </html>

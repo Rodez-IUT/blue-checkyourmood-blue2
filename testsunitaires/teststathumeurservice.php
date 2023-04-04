@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 
 
 
-class StatHumeurServiceTest extends TestCase {
+class teststathumeurservice extends TestCase {
 
     public function getPDO() {
         try {

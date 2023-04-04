@@ -2,7 +2,7 @@
 use model\utilisateurservice;
 use PHPUnit\Framework\TestCase;
 
-class UtilisateurServiceTest extends TestCase {
+class testutilisateurservice extends TestCase {
 
     public function getPDO() {
         try {

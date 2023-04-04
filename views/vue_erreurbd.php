@@ -17,8 +17,7 @@ require 'includes/header.php';
                 <br>
                 <h3>La base de donnée semble injoignable pour le moment</h3>
                 <p>Nos équipes travaillent à résoudre le problème, essayez d'acceder a la <a href="/?controller=index">page de connexion</a> dans quelques minutes.</p>
-            </div>
-            
+            </div>   
         </div>
     </div>
 </body>

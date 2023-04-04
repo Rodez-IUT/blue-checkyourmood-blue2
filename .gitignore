@@ -1,2 +1,16 @@
-/yasmf_all_users
 /yasmf_hello_world
+/yasmf_all_users
+# Fichiers système
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+.DS_Store
+
+# Fichiers générés par Android Studio
+/.gradle/
+/build/
+/captures/

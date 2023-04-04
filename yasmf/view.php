@@ -43,4 +43,11 @@ class view
         // "enrole" the php file used to build and send the response
         require_once $this->relativePath . ".php";
     }
+    public function getRelativePath():string
+    {
+        return $this->relativePath;
+    }
+    public function getVar(string $key) : mixed {
+        return $this->viewParams[$key];
+    }
 }

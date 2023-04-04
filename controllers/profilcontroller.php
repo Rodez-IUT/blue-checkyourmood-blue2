@@ -7,7 +7,7 @@
  */
 
 namespace controllers;
-
+use PDO;
 use yasmf\view;
 use yasmf\controller;
 use yasmf\config;
@@ -26,7 +26,7 @@ class profilController implements controller
      * @param $pdo connexion à la base de données
      * @return view vue retournée au routeur
      */
-    public function index($pdo)
+    public function index(PDO $pdo): View
     {
         $view = new view(config::getRacine() . "views/vue_profil");
         $view->setVar('RACINE', config::getRacine());
@@ -38,7 +38,7 @@ class profilController implements controller
     /**
      * Supprime le profil de l'utilisateur le désinscrit de l'application
      */
-    public function supprimerProfil($pdo)
+    public function supprimerProfil(PDO $pdo)
     {
         //On recupere le code utilisateur
         $codeUtilisateur = httphelper::getParam('codeUtilisateur');

@@ -16,16 +16,17 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
         <div class="row">
             <div class="col"></div>
             <div class="col">
-                <h1 class="rougeClair">Bonjour <?php echo$_SESSION['prenom'].' '.$_SESSION['nom'] ?></h1>
+                <h1 class="rougeClair">Bonjour <?php echo $_SESSION['prenom'].' '.$_SESSION['nom'] ?></h1>
             </div>
             <div class="col"></div>
         </div>
         <p class="espace2"></p>
         <div class="row">
             <div class="col-1"></div>
-            <!-- Lien vers les humeurs de l'utilisateur avec le code utilisateur -->
+            <!-- Lien vers les humeurs de l'utilisateur avec le code utilisateur et la page 1 par défaut-->
             <div class="col notDraggable">
-              <form action="/?controller=consultationhumeurs&action=consulter" method="POST">
+              <form action="/?controller=consultationhumeurs&action=consulter&page=1" method="POST">
+                <input name="pagination" value="1" hidden>
                   <button class="zoom" type="submit">
                     <input hidden name="codeUtilisateur" value="<?php echo($_SESSION['id']) ?>">
                     <p class="icon-accueil">&#128301;</p>

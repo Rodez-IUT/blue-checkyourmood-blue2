@@ -40,6 +40,62 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                 <div class="col-3"></div>
             </div>
             <?php } ?>
+            <!-- Si le nom n'est pas renseigner-->
+            <?php if($affichage==1 && !$nomOK) { ?>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col">
+                    <div class="alert alert-danger" role="alert">
+                        Erreur ! le nom n'est pas renseigner
+                        <br>                        
+                        
+                    </div>
+                </div>
+                <div class="col-1"></div>
+            </div>
+            <?php } ?>
+            <!-- Si le prénom n'est pas renseigner-->
+            <?php if($affichage==1 && !$prenomOK) { ?>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col">
+                    <div class="alert alert-danger" role="alert">
+                        Erreur ! le prénom de l'utilisateur n'est pas renseigner
+                        <br>                        
+                        
+                    </div>
+                </div>
+                <div class="col-1"></div>
+            </div>
+            <?php } ?>
+            <!-- Si le pseudo n'est pas renseigner-->
+            <?php if($affichage==1 && !$nomUtilisateurOK) { ?>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col">
+                    <div class="alert alert-danger" role="alert">
+                        Erreur ! le pseudo de l'utilisateur n'est pas renseigner
+                        <br>                        
+                        
+                    </div>
+                </div>
+                <div class="col-1"></div>
+            </div>
+            <?php } ?>
+            <!-- Si le mail n'est pas renseigner-->
+            <?php if($affichage==1 && $mail=="") { ?>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col">
+                    <div class="alert alert-danger" role="alert">
+                        Erreur ! le mail de l'utilisateur n'est pas renseigner
+                        <br>                        
+                        
+                    </div>
+                </div>
+                <div class="col-1"></div>
+            </div>
+            <?php } ?>
             <?php if($mail != null && !$mailOK) { ?>
             <!-- Si l'email n'est pas valide -->
             <div class="row">
@@ -60,29 +116,29 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                 <div class="col">
                     <div class="col gauche">
                         <label for="newNom"  class="form-label">Nom</label>
-                        <input pattern="\w{2,80}" title="Le nom  ne doit pas depass er 80 caractere" name="newNom" value="<?php if ($nomOK) { echo($nom); } else {echo($_SESSION['nom']);} ?>" type="Text" placeholder="Saisissez votre nom" class="form-control <?php if ($nomOK) { echo 'is-valid'; } ?>" required>
+                        <input pattern="\w{2,80}" title="Le nom  ne doit pas depass er 80 caractere" name="newNom" value="<?php if ($nomOK) { echo($nom); } else {echo($_SESSION['nom']);} ?>" type="Text" placeholder="Saisissez votre nom" class="form-control <?php if ($nomOK) { echo 'is-valid'; } ?>" >
                     </div>
                     <p class="espace0"></p>
                     <div class="col gauche">
                         <label for="newPrenom" class="form-label">Prenom</label>
-                        <input pattern="\w{2,80}" title="Le prenom ne doit pas depasser 80 caractere" name="newPrenom" value="<?php if ($prenomOK) { echo $prenom; } else {echo($_SESSION['prenom']);}?>" type="Text" placeholder="Saisissez votre prenom" class="form-control <?php if ($prenomOK) { echo 'is-valid'; } ?>" required>
+                        <input pattern="\w{2,80}" title="Le prenom ne doit pas depasser 80 caractere" name="newPrenom" value="<?php if ($prenomOK) { echo $prenom; } else {echo($_SESSION['prenom']);}?>" type="Text" placeholder="Saisissez votre prenom" class="form-control <?php if ($prenomOK) { echo 'is-valid'; } ?>" >
                     </div>
                     <p class="espace0"></p>
                     <div class="gauche">
                         <label class="form-label">Genre <i>(optionnel)</i></label>
                         <select class="form-select" name="newGenre">
-                            <?php if ($_SESSION['genre'] == "homme") { ?>
-                            <option value="homme" selected>homme</option>
-                            <option value="femme">femme</option>
-                            <option value="autre">autre</option>
-                            <?php } else if ($_SESSION['genre'] == "femme") { ?>
-                            <option value="homme">homme</option>
-                            <option value="femme" selected>femme</option>
-                            <option value="autre">autre</option>
+                            <?php if ($_SESSION['genre'] == "Homme") { ?>
+                            <option value="Homme" selected>Homme</option>
+                            <option value="Femme">Femme</option>
+                            <option value="Autre">Autre</option>
+                            <?php } else if ($_SESSION['genre'] == "Femme") { ?>
+                            <option value="Homme">Homme</option>
+                            <option value="Femme" selected>Femme</option>
+                            <option value="Autre">Autre</option>
                             <?php } else { ?>
-                            <option value="homme">homme</option>
-                            <option value="femme">femme</option>
-                            <option value="autre" selected>autre</option>
+                            <option value="Homme">Homme</option>
+                            <option value="Femme">Femme</option>
+                            <option value="Autre" selected>Autre</option>
                             <?php } ?>
                         </select>
                     </div>
@@ -92,12 +148,12 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                 <div class="col">
                     <div class="col gauche">
                         <label for="newMail" class="form-label">Adresse Mail</label>
-                        <input name="newMail" value="<?php if ($mailOK) { echo $mail; } else {echo($_SESSION['mail']);} ?>" type="Text" placeholder="Saisissez votre adresse mail" class="form-control <?php if ($mailOK) { echo 'is-valid'; } ?>" required>
+                        <input name="newMail" value="<?php if ($mailOK) { echo $mail; } else {echo($_SESSION['mail']);} ?>" type="Text" placeholder="Saisissez votre adresse mail" class="form-control <?php if ($mailOK) { echo 'is-valid'; } ?>" >
                     </div>
                     <p class="espace0"></p>
                     <div class="col gauche">
                         <label for="newNomUtilisateur" class="form-label">Nom d'utilisateur</label>
-                        <input pattern="\w{2,80}" title="Le nom d'utilisateur ne doit pas depasser 80 caractere" name="newNomUtilisateur" value="<?php if ($nomUtilisateurOK) {echo $nomUtilisateur;} else {echo ($_SESSION['nom_utilisateur']);}?>" type="Text" placeholder="Saisissez votre nom d'utilisateur" class="form-control <?php if ($nomUtilisateurOK) { echo 'is-valid'; } ?>" required>
+                        <input pattern="\w{2,80}" title="Le nom d'utilisateur ne doit pas depasser 80 caractere" name="newNomUtilisateur" value="<?php if ($nomUtilisateurOK) {echo $nomUtilisateur;} else {echo ($_SESSION['nom_utilisateur']);}?>" type="Text" placeholder="Saisissez votre nom d'utilisateur" class="form-control <?php if ($nomUtilisateurOK) { echo 'is-valid'; } ?>" >
                     </div>
                     <p class="espace0"></p>
                     <div class="gauche">
@@ -109,6 +165,10 @@ if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom'])) {
                 <div class="col"></div>
             </div>
             <p class="espace1"></p>
+
+            <!-- variable caché (affichage) qui a une valeur égal a 0 au début et 1 après les première modifications de l'utilisateur -->
+            <input name="affichage" type="hidden" value="1"></input>
+
             <!-- ID de l'utilisateur caché -->
             <input hidden name="idUtilisateur" value="<?php echo($_SESSION['id']); ?>">
             <!-- Bouton pour valider les modifications -->

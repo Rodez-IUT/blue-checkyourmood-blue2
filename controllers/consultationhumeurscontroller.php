@@ -8,6 +8,7 @@
 
 namespace controllers;
 
+use PDO;
 use yasmf\view;
 use yasmf\controller;
 use yasmf\httphelper;
@@ -28,7 +29,7 @@ class consultationHumeursController implements controller
      * @param $err message d'erreur
      * @return view vue retournée au routeur
      */
-    public function index($pdo)
+    public function index(PDO $pdo): View
     {
         $view = new view(config::getRacine() . "views/vue_consultationhumeur");
        
@@ -38,24 +39,30 @@ class consultationHumeursController implements controller
         $view->setVar('codeEmotion', httphelper::getParam('codeEmotion'));
         $view->setVar('codeUtilisateur', httphelper::getParam('codeUtilisateur'));
         $view->setVar('humeurSupp', httphelper::getParam('humeurSupp'));
-
-        $codeUtilisateur = httphelper::getParam('codeUtilisateur');
+        
 
         //Filtres possibles
         $codeEmotion = httphelper::getParam('codeEmotion');
         $dateSaisie = httphelper::getParam('dateSaisie');
+        $pagination = httphelper::getParam('pagination');
+        $view->setVar('numeroDeLaPage', $pagination);
         if (isset($dateSaisie) && $dateSaisie != "" && isset($codeEmotion) && $codeEmotion != "") {
-            $_POST['humeurs'] = humeurservice::getHumeursUtilisateurFiltres($pdo, $codeUtilisateur, $codeEmotion, $dateSaisie);
+            $_POST['humeurs'] = humeurservice::getHumeursUtilisateurFiltres($pdo, $codeUtilisateur, $codeEmotion, $dateSaisie, $pagination);
+            $nrbHumeurAfficher = humeurservice::nombreTotalHumeurPourUtilisateurAvecFiltres($pdo, $codeUtilisateur, $codeEmotion, $dateSaisie);
         } else if (isset($codeEmotion) && $codeEmotion != "") {
-            $_POST['humeurs'] = humeurservice::getHumeursUtilisateurEmotion($pdo, $codeUtilisateur, $codeEmotion);
+            $_POST['humeurs'] = humeurservice::getHumeursUtilisateurEmotion($pdo, $codeUtilisateur, $codeEmotion, $pagination);
+            $nrbHumeurAfficher = humeurservice::nombreTotalHumeurPourUtilisateurEmotion($pdo, $codeUtilisateur, $codeEmotion);
         } else if (isset($dateSaisie) && $dateSaisie != "") {
-            $_POST['humeurs'] = humeurservice::getHumeursUtilisateurDate($pdo, $codeUtilisateur, $dateSaisie);
+            $_POST['humeurs'] = humeurservice::getHumeursUtilisateurDate($pdo, $codeUtilisateur, $dateSaisie, $pagination);
+            $nrbHumeurAfficher = humeurservice::nombreTotalHumeurPourUtilisateurDate($pdo, $codeUtilisateur, $dateSaisie);
         } else {
-            $_POST['humeurs'] = humeurservice::getHumeursUtilisateur($pdo, $codeUtilisateur);
+            $_POST['humeurs'] = humeurservice::getHumeursUtilisateur($pdo, $codeUtilisateur, $pagination);
+            $nrbHumeurAfficher = humeurservice::nombreTotalHumeurPourUtilisateur($pdo, $codeUtilisateur);
         }
 
         $view->setVar('humeurs', httphelper::getParam('humeurs'));
         $view->setVar('tabEmotions', emotionsservice::getEmotions($pdo));
+        $view->setVar('nombreTotalHumeur', $nrbHumeurAfficher);
 
         return $view;
     }  
@@ -65,7 +72,7 @@ class consultationHumeursController implements controller
      * @param $err message d'erreur
      * @return view vue retournée au routeur
      */
-    public function consulter($pdo)
+    public function consulter(PDO $pdo): View
     {
         return $this->index($pdo);
     }  
@@ -75,7 +82,7 @@ class consultationHumeursController implements controller
      * @param pdo connexion à la base de données
      * @return view appel de la méthode index
      */
-    public function supprimer($pdo)
+    public function supprimer(PDO $pdo): View
     {
         $codeUtilisateur = httphelper::getParam('codeUtilisateur');
         $codeHumeur = httphelper::getParam('codeHumeur');
