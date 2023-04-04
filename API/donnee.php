@@ -69,7 +69,33 @@
 			sendJSON($infos, 500) ;
 		}
     }
+	 function getHumeursUtilisateur( $codeUtilisateur)
+    {
+        try {
+			$pdo=getPDO();
+            $sql = "SELECT *
+                    FROM `humeur`
+                    JOIN `emotion` ON humeur.CODE_EMOTION = emotion.ID_EMOTION
+                    WHERE humeur.CODE_UTILISATEUR = :id 
+                    ORDER BY `DATE_HEURE` DESC
+                    ";
 
+            $stmt = $pdo->prepare($sql);
+            $stmt->BindParam('id',$codeUtilisateur);
+            $stmt->execute();
+
+			$clients=$stmt->fetchALL();
+			$stmt->closeCursor();
+			$stmt=null;
+			$pdo=null;
+
+			sendJSON($clients, 200) ;
+        } catch(PDOException $e){
+			$infos['Statut']="KO";
+			$infos['message']=$e->getMessage();
+			sendJSON($infos, 500) ;
+		}
+    }
 	function affichageEmotion() {
         try {
             $pdo=getPDO();

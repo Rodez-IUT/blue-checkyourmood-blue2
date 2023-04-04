@@ -18,12 +18,13 @@ class humeurservice
                     ";
 
             $stmt = $pdo->prepare($sql);
+            var_dump($pagination);
             $pagination = (($pagination - 1) * 15);
-            $stmt->BindParam('pagination', $pagination);
-            $stmt->BindParam('id',$codeUtilisateur);
-            $stmt->BindParam('code_emo', $codeEmotion);
+            $stmt->bindParam(':pagination', $pagination, $pdo::PARAM_INT);
+            $stmt->bindParam('id',$codeUtilisateur);
+            $stmt->bindParam('code_emo', $codeEmotion);
             $dateHeure = $dateHeure."%";
-            $stmt->BindParam('date', $dateHeure);
+            $stmt->bindParam('date', $dateHeure);
             $stmt->execute();
 
             $tabHumeurs = array();
@@ -54,7 +55,7 @@ class humeurservice
 
             $stmt = $pdo->prepare($sql);
             $pagination = (($pagination - 1) * 15);
-            $stmt->BindParam('pagination', $pagination);
+            $stmt->bindParam(':pagination', $pagination, $pdo::PARAM_INT);
             $stmt->BindParam('id',$codeUtilisateur);
             $dateHeure = $dateHeure."%";
             $stmt->BindParam('date', $dateHeure);
@@ -89,7 +90,7 @@ class humeurservice
             $stmt->BindParam('id',$codeUtilisateur);
             $stmt->BindParam('code_emo', $codeEmotion);
             $pagination = (($pagination - 1) * 15);
-            $stmt->BindParam('pagination', $pagination);
+            $stmt->bindParam(':pagination', $pagination, $pdo::PARAM_INT);
             $stmt->execute();
 
             $tabHumeurs = array();
@@ -119,7 +120,8 @@ class humeurservice
 
             $stmt = $pdo->prepare($sql);
             $pagination = (($pagination - 1) * 15);
-            $stmt->BindParam('pagination', $pagination);
+
+            $stmt->bindParam(':pagination', $pagination, $pdo::PARAM_INT);
             $stmt->BindParam('id',$codeUtilisateur);
             $stmt->execute();
 
