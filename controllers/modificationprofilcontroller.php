@@ -68,6 +68,7 @@ class ModificationProfilController implements controller
         $mail = httphelper::getParam('newMail');
         $nomUtilisateur = httphelper::getParam('newNomUtilisateur');
         $genre = httphelper::getParam('newGenre');
+        $dateNaissance = httphelper::getParam('newDateNaissance');
         $codeUtilisateur = httphelper::getParam('idUtilisateur');
         
 

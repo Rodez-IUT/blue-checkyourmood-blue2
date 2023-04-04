@@ -120,6 +120,7 @@ class humeurservice
 
             $stmt = $pdo->prepare($sql);
             $pagination = (($pagination - 1) * 15);
+
             $stmt->bindParam(':pagination', $pagination, $pdo::PARAM_INT);
             $stmt->BindParam('id',$codeUtilisateur);
             $stmt->execute();
